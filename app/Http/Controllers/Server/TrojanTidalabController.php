@@ -8,7 +8,7 @@ use App\Services\UserService;
 use App\Utils\CacheKey;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Models\ServerTrojan;
 use App\Models\ServerLog;
 use Illuminate\Support\Facades\DB;

@@ -7,7 +7,7 @@ use App\Http\Requests\Staff\UserUpdate;
 use App\Jobs\SendEmailJob;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Models\Plan;
 
 class UserController extends Controller

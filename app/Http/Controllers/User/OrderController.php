@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\Plan;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Utils\Helper;
 use Omnipay\Omnipay;
 use Stripe\Stripe;

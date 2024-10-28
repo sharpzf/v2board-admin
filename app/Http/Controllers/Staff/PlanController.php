@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use App\Models\Order;
-use App\Models\User;
+use App\Models\V2user as User;
 use Illuminate\Support\Facades\DB;
 
 class PlanController extends Controller

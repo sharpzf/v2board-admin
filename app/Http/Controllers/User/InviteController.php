@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\CommissionLog;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Models\Order;
 use App\Models\InviteCode;
 use App\Utils\Helper;

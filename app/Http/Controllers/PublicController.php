@@ -91,10 +91,10 @@ class PublicController extends Controller
                 $options_json[$key]=self::unicodeDecode($val);
             }
         }
-        echo '<pre>';
-        print_r($options_json);
-        print_r($api_name);
-        exit;
+//        echo '<pre>';
+//        print_r($options_json);
+//        print_r($api_name);
+//        exit;
 
         $options_json=json_encode($options_json);
         if(empty($api_name)){
@@ -103,7 +103,7 @@ class PublicController extends Controller
         if(!in_array($method,['get','post'])){
             exit("接口请求方式错误");
         }
-        $forward_url='http://www.laravel-layui.com/api/v1';
+//        $forward_url='http://www.laravel-layui.com/api/v1';
         $function = 'v'.$method;
         // $url = 'https://v1b.yihrt.one/api/v1'.$api_name;
 

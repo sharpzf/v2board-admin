@@ -52,7 +52,7 @@ class AuthService
                 ])
                     ->find($data['id']);
                 if (!$user) return false;
-                Cache::put($jwt, $user->toArray(), 3600);
+                Cache::forever($jwt, $user->toArray(), 3600);
             }
             return Cache::get($jwt);
         } catch (\Exception $e) {
@@ -72,7 +72,7 @@ class AuthService
         $cacheKey = CacheKey::get("USER_SESSIONS", $userId);
         $sessions = (array)Cache::get($cacheKey, []);
         $sessions[$guid] = $meta;
-        if (!Cache::put(
+        if (!Cache::forever(
             $cacheKey,
             $sessions
         )) return false;
@@ -89,7 +89,7 @@ class AuthService
         $cacheKey = CacheKey::get("USER_SESSIONS", $this->user->id);
         $sessions = (array)Cache::get($cacheKey, []);
         unset($sessions[$sessionId]);
-        if (!Cache::put(
+        if (!Cache::forever(
             $cacheKey,
             $sessions
         )) return false;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Services\UserService;
 use App\Utils\Helper;
 use Illuminate\Http\Request;

@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "fideloper/proxy": "~3.3",
         "firebase/php-jwt": "6.3",
+        "google/recaptcha": "1.2",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.5.*",
         "laravel/horizon": "*",

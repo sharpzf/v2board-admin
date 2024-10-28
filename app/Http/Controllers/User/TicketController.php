@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\TicketSave;
 use App\Http\Requests\User\TicketWithdraw;
 use App\Jobs\SendTelegramJob;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Services\TelegramService;
 use App\Services\TicketService;
 use App\Utils\Dict;

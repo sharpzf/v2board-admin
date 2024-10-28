@@ -11,7 +11,7 @@ use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Plan;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Models\InviteCode;
 use App\Utils\Helper;
 use App\Utils\Dict;
@@ -186,7 +186,7 @@ class AuthController extends Controller
     }
 
     public function login(AuthLogin $request)
-    {echo 11344;exit;
+    {
         $email = $request->input('email');
         $password = $request->input('password');
 

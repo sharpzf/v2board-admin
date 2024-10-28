@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Models\ServerVmess;
 use App\Models\ServerLog;
-use App\Models\User;
+use App\Models\V2user as User;
 
 use App\Utils\Helper;
 use Illuminate\Support\Facades\DB;

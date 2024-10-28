@@ -10,7 +10,7 @@ use App\Services\AuthService;
 use App\Services\UserService;
 use App\Utils\CacheKey;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\V2user as User;
 use App\Models\Plan;
 use App\Models\Ticket;
 use App\Utils\Helper;
