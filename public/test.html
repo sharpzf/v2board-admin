@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="formSelects-v4.css"/>
+</head>
+<body>
+
+  <div class="layui-form" lay-filter="filter-test-layer" style="margin: 16px;">
+        <div class="demo-login-container">
+          <div class="layui-form-item">
+            <div class="layui-input-wrap">
+              <div class="layui-input-prefix">
+                <i class="layui-icon layui-icon-username"></i>
+              </div>
+              <input type="text" name="username" value=""  autocomplete="off" class="layui-input" lay-affix="clear">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-wrap">
+              <div class="layui-input-prefix">
+                <i class="layui-icon layui-icon-password"></i>
+              </div>
+              <input type="password" name="password" value="" lay-verify="required" placeholder="密   码" lay-reqtext="请填写密码" autocomplete="off" class="layui-input" lay-affix="eye">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-row">
+              <div class="layui-col-xs7">
+                <div class="layui-input-wrap">
+                  <div class="layui-input-prefix">
+                    <i class="layui-icon layui-icon-vercode"></i>
+                  </div>
+                  <input type="text" name="captcha" value="" lay-verify="required" placeholder="验证码" lay-reqtext="请填写验证码" autocomplete="off" class="layui-input" lay-affix="clear">
+                </div>
+              </div>
+              <div class="layui-col-xs5">
+                <div style="margin-left: 10px;">
+                  <img src="https://www.oschina.net/action/user/captcha" onclick="this.src='https://www.oschina.net/action/user/captcha?t='+ new Date().getTime();">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
+            <a href="#forget" style="float: right; margin-top: 7px;">忘记密码？</a>
+          </div>
+          <div class="layui-form-item">
+            <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="demo-login">登录</button>
+          </div>
+          <div class="layui-form-item demo-login-other">
+            <label>社交账号登录</label>
+            <span style="padding: 0 21px 0 6px;">
+                  <a href="javascript:;"><i class="layui-icon layui-icon-login-qq" style="color: #3492ed;"></i></a>
+                  <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat" style="color: #4daf29;"></i></a>
+                  <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo" style="color: #cf1900;"></i></a>
+                </span>
+            或 <a href="#reg">注册帐号</a></span>
+          </div>
+        </div>
+      </div>
+`,
+
+
+
+
+
+
+<script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="formSelects-v4.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    formSelects.render('selectId');
+</script>
+
+
+
+
+  <script>
+      layui.use(['layer','table','form','laydate'],function () {
+          var layer = layui.layer;
+          // var $ = layui.jquery;
+          var laydate = layui.laydate;
+          var form = layui.form;
+          var table = layui.table;
+          var util = layui.util;
+
+          // 日期范围 - 左右面板独立选择模式
+          laydate.render({
+              elem: '#ID-laydate-range',
+              range: ['#ID-laydate-start-date', '#ID-laydate-end-date']
+          });
+          // 日期范围 - 左右面板联动选择模式
+          laydate.render({
+              elem: '#ID-laydate-rangeLinked',
+              range: ['#ID-laydate-start-date-1', '#ID-laydate-end-date-1'],
+              rangeLinked: true, // 开启日期范围选择时的区间联动标注模式 ---  2.8+ 新增
+              fullPanel: true,
+              type: 'datetime',
+          });
+
+          // 年范围
+          laydate.render({
+              elem: '#ID-laydate-range-year',
+              type: 'year',
+              range: true
+          });
+
+          // 年月范围
+          laydate.render({
+              elem: '#ID-laydate-range-month',
+              type: 'month',
+              range: true
+          });
+
+          // 时间范围
+          laydate.render({
+              elem: '#ID-laydate-range-time',
+              type: 'time',
+              range: true
+          });
+
+          // 日期时间范围
+          laydate.render({
+              elem: '#ID-laydate-range-datetime',
+              type: 'datetime',
+              range: true
+          });
+
+          //用户表格初始化
+          var dataTable = table.render({
+              elem: '#dataTable'
+              ,height: 500
+              ,url: "{{ route('admin.v2user.data') }}" //数据接口
+              ,page: true //开启分页
+              ,cols: [[ //表头
+                  {checkbox: true,fixed: true}
+                  ,{field: 'id', title: 'ID',sort: true}
+                  ,{field: 'email', title: '邮箱'}
+                  ,{field: 'banned_val', title: '状态',sort: true}
+                  ,{field: 'plan_name', title: '订阅',sort: true}
+                  ,{field: 'group_name', title: '权限组',sort: true}
+                  ,{field: 'total_used', title: '已用(G)',sort: true}
+                  ,{field: 'transfer_enable', title: '流量(G)',sort: true}
+                  ,{field: 'expired_at_val', title: '到期时间',sort: true}
+                  ,{field: 'balance_val', title: '余额',sort: true}
+                  ,{field: 'commission_balance_val', title: '佣金',sort: true}
+                  ,{field: 'created_at_val', title: '加入时间',sort: true}
+                  ,{fixed: 'right',widht:'20%',align:'center', toolbar: '#options'}
+              ]]
+          });
+
+          //监听工具条
+          table.on('tool(dataTable)', function(obj){ //注：tool是工具条事件名，dataTable是table原始容器的属性 lay-filter="对应的值"
+              var data = obj.data //获得当前行数据
+                  ,layEvent = obj.event; //获得 lay-event 对应的值
+
+              if(layEvent === 'del'){
+                  layer.confirm('确认封禁吗？', function(index){
+                      $.post("{{ route('admin.v2user.ban') }}",{_method:'delete',ids:[data.id]},function (result) {
+                          if (result.code==0){
+                              obj.del(); //删除对应行（tr）的DOM结构
+                          }
+                          layer.close(index);
+                          layer.msg(result.msg)
+                          window.location.href="{{ route('admin.v2user.ban') }}";
+                      });
+                  });
+              } else if(layEvent === 'edit'){
+                  location.href = '/admin/v2user/'+data.id+'/edit';
+              }
+          });
+
+
+          //监听是否显示
+          form.on('switch(isShow)', function(obj){
+              var index = layer.load();
+              var url = $(obj.elem).attr('url')
+              var data = {
+                  "is_show" : obj.elem.checked==true?1:0,
+                  "_method" : "put"
+              }
+              $.post(url,data,function (res) {
+                  layer.close(index)
+                  layer.msg(res.msg)
+              },'json');
+          });
+          //按钮批量删除
+          $("#listDelete").click(function () {
+              var ids = []
+              var hasCheck = table.checkStatus('dataTable')
+              var hasCheckData = hasCheck.data
+              if (hasCheckData.length>0){
+                  $.each(hasCheckData,function (index,element) {
+                      ids.push(element.id)
+                  })
+              }
+              if (ids.length>0){
+                  layer.confirm('确认封禁吗？', function(index){
+                      $.post("{{ route('admin.v2user.ban') }}",{_method:'delete',ids:ids},function (result) {
+                          if (result.code==0){
+                              dataTable.reload()
+                          }
+                          layer.close(index);
+                          layer.msg(result.msg)
+                      });
+                  })
+              }else {
+                  layer.msg('请选择删除项')
+              }
+          });
+
+          //搜索
+          $("#searchBtn").click(function (k) {
+              var field_name = $("#field_name option:selected").val();
+              var field_val = $.trim($("#field_val").val());
+              var is_admin = $("#is_admin option:selected").val();
+              var plan_id = $("#plan_id option:selected").val();
+              var banned = $("#banned option:selected").val();
+              var expired_at_start = $("#ID-laydate-start-date-1").val();
+              var expired_at_end = $("#ID-laydate-end-date-1").val();
+              if(field_name!='-1' && !field_val){
+                  layer.msg('请输入搜索内容');
+                  return false;
+              }
+
+              dataTable.reload({
+                  where:{'field_name':field_name,'field_val':field_val,'is_admin':is_admin,'plan_id':plan_id,
+                      'banned':banned,'expired_at_start':expired_at_start,'expired_at_end':expired_at_end
+                  },
+                  page:{curr:1}
+              })
+          });
+
+
+          //导出csv
+          $("#down_csv").click(function () {
+
+              var field_name = $("#field_name option:selected").val();
+              var field_val = $.trim($("#field_val").val());
+              var is_admin = $("#is_admin option:selected").val();
+              var plan_id = $("#plan_id option:selected").val();
+              var banned = $("#banned option:selected").val();
+              var expired_at_start = $("#ID-laydate-start-date-1").val();
+              var expired_at_end = $("#ID-laydate-end-date-1").val();
+
+
+
+              $.ajax({
+                  url:  "{{ route('admin.v2user.csv') }}",
+                  type: 'post',
+                  data: {
+                      'field_name':field_name,
+                      'field_val':field_val,
+                      'is_admin':is_admin,
+                      'plan_id':plan_id,
+                      'banned':banned,
+                      'expired_at_start':expired_at_start,
+                      'expired_at_end':expired_at_end
+                  },
+                  async: false,
+                  dataType: 'json',
+                  success: function (res) {
+                      //使用table.exportFile()导出数据
+                      table.exportFile(
+                          // "['邮箱','余额','推广佣金','总流量','剩余流量','套餐到期时间','订阅计划','订阅地址']",
+                          ['邮箱','余额','推广佣金','总流量','剩余流量','套餐到期时间','订阅计划','订阅地址'],
+                          // "exportTable",
+                          res.data,
+                          'v2board_user.csv'
+                      );
+                  }
+              });
+
+
+          });
+
+
+
+
+
+          util.on('lay-on', {
+              // 'test-page': function(){
+              //     layer.open({
+              //         type: 1,
+              //         // area: ['420px', '240px'], // 宽高
+              //         content: '<div style="padding: 16px;">任意 HTML 内容</div>'
+              //     });
+              // },
+              // 'test-page-wrap': function(){
+              //     layer.open({
+              //         type: 1,
+              //         shade: false, // 不显示遮罩
+              //         content: $('#ID-test-layer-wrapper'), // 捕获的元素
+              //         end: function(){
+              //             // layer.msg('关闭后的回调', {icon:6});
+              //         }
+              //     });
+              // },
+              // 'test-page-title': function(){
+              //     layer.open({
+              //         type: 1,
+              //         area: ['420px', '240px'], // 宽高
+              //         title: false, // 不显示标题栏
+              //         closeBtn: 0,
+              //         shadeClose: true, // 点击遮罩关闭层
+              //         content: '<div style="padding: 16px;">任意 HTML 内容。可点击遮罩区域关闭。</div>'
+              //     });
+              // },
+              // 'test-page-move': function(){
+              //     layer.open({
+              //         type: 1,
+              //         area: ['420px', '240px'], // 宽高
+              //         title: false,
+              //         content: ['<div style="padding: 11px;">',
+              //             '任意 HTML 内容',
+              //             '<div style="padding: 16px 0;">',
+              //             '<button class="layui-btn" id="ID-test-layer-move">拖拽此处移动弹层</button>',
+              //             '</div>',
+              //             '</div>'].join(''),
+              //         move: '#ID-test-layer-move'
+              //     });
+              // },
+              'test-page-custom': function(){
+
+                  var field_name = $("#field_name option:selected").val();
+                  var field_val = $.trim($("#field_val").val());
+                  var is_admin = $("#is_admin option:selected").val();
+                  var plan_id = $("#plan_id option:selected").val();
+                  var banned = $("#banned option:selected").val();
+                  var expired_at_start = $("#ID-laydate-start-date-1").val();
+                  var expired_at_end = $("#ID-laydate-end-date-1").val();
+
+                  var is_filter=0;
+                  if(field_name !='-1'|| is_admin!='-1' ||plan_id!='-1'||banned!='-1'||expired_at_start || expired_at_end){
+                      is_filter=1;
+                  }
+
+                  var show_text=is_filter?'过滤用户':'全部用户';
+
+                  var html='<form class="layui-form" action="{{route('admin.v2user.send')}}" method="post">\n' +
+                  var html='' +
+                      '            <div class="layui-form-item">\n' +
+                      '                <label for="" class="layui-form-label">收件人</label>\n' +
+                      '                <div class="layui-input-block">\n' +
+                      '                    <input type="text" value="'+show_text+'" disabled class="layui-input" autocomplete="off" >\n' +
+                      '                </div>\n' +
+                      '            </div>\n' +
+                      '\n' +
+                      '            <div class="layui-form-item">\n' +
+                      '                <label for="" class="layui-form-label">主题</label>\n' +
+                      '                <div class="layui-input-block">\n' +
+                      '                    <input type="text" name="subject" placeholder="请输入邮件主题" lay-verify="required" lay-reqtext="请填写邮件主题" lay-affix="clear" class="layui-input subject" autocomplete="off" >\n' +
+                      '                </div>\n' +
+                      '            </div>\n' +
+                      '\n' +
+                      '\n' +
+                      '            <div class="layui-form-item">\n' +
+                      '                <label for="" class="layui-form-label">发送内容</label>\n' +
+                      '                <div class="layui-input-block">\n' +
+                      '                    <textarea class="layui-textarea content" name="content" rows="6" lay-verify="required" placeholder="请输入邮件内容"></textarea>\n' +
+                      '                </div>\n' +
+                      '            </div>\n' +
+                      '\n' +
+                      '            <div class="layui-form-item">\n' +
+                      '                <div class="layui-input-block">\n' +
+                      '                    <button class="layui-btn confirm_send_email" lay-submit lay-filter="confirm_send_email">确 认</button>\n' +
+                      '                    <a  class="layui-btn" href="{{route('admin.v2user')}}" >返 回</a>\n' +
+                  '                </div>\n' +
+                  '            </div>\n' +
+                  // '            </form>' +
+                  '';
+
+
+
+                  layer.open({
+                      type: 1,
+                      // area: '550px',
+                      area: ['800px', '350px'],
+                      resize: false,
+                      shadeClose: true,
+                      // title: 'demo : layer + form',
+                      title: '发送邮件',
+                      content: html,
+                      success: function(index){
+
+                          // 对弹层中的表单进行初始化渲染
+                          form.render();
+                          // 表单提交事件
+                          form.on('submit(confirm_send_email)', function(data){
+
+                              // var field = data.field; // 获取表单字段值
+                              var content = $.trim($(".content").val());
+                              var subject = $.trim($(".subject").val());
+                              if(!subject){
+                                  layer.msg('主题不能为空');
+                                  return false;
+                              }
+                              if(!content){
+                                  layer.msg('内容不能为空');
+                                  return false;
+                              }
+
+                              $('.confirm_send_email').attr("disabled",true);
+
+                              $.ajax({
+                                  // async : false,
+                                  // cache : false,
+                                  type : 'POST',
+                                  dataType: "json",
+                                  data : {
+                                      'field_name':field_name,
+                                      'field_val':field_val,
+                                      'is_admin':is_admin,
+                                      'plan_id':plan_id,
+                                      'banned':banned,
+                                      'expired_at_start':expired_at_start,
+                                      'expired_at_end':expired_at_end,
+                                      'content':content,
+                                      'subject':subject
+                                  },
+                                  url:  "{{ route('admin.v2user.send') }}",
+                                  error : function() {// 请求失败处理函数
+                                      $('.confirm_send_email').attr("disabled",false);
+                                  },
+                                  success : function(data) {
+                                      $('.confirm_send_email').attr("disabled",false);
+                                      layer.msg(data.msg);
+                                      var index = parent.layer.getFrameIndex(window.name);
+                                      // layer.close(index);
+                                      setTimeout(function () {
+                                          window.location.href="{{ route('admin.v2user') }}";
+                                      }, 500);//延迟
+                                      return false;
+                                  }
+                              });
+
+
+
+                              // 显示填写结果，仅作演示用
+                              // layer.alert(JSON.stringify(field), {
+                              //     title: '当前填写的字段值'
+                              // });
+                              // 此处可执行 Ajax 等操作
+                              // …
+                              return false; // 阻止默认 form 跳转
+                          });
+                      }
+
+                  });
+                  return false;
+              }
+          });
+
+      })
+
+
+  </script>}
+</body>
+</html>
+
+
