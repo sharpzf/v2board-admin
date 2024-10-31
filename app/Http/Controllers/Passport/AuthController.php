@@ -73,7 +73,8 @@ class AuthController extends Controller
 
     }
 
-    public function register(AuthRegister $request)
+//    public function register(AuthRegister $request)
+    public function register(Request $request)
     {
         if ((int)config('v2board.register_limit_by_ip_enable', 0)) {
             $registerCountByIP = Cache::get(CacheKey::get('REGISTER_IP_RATE_LIMIT', $request->ip())) ?? 0;
@@ -185,7 +186,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(AuthLogin $request)
+//    public function login(AuthLogin $request)
+    public function login(Request $request)
     {
         $email = $request->input('email');
         $password = $request->input('password');

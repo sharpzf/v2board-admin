@@ -125,7 +125,8 @@ class NodeController extends Controller
             }
 
 
-            $group_arr=json_decode($v['group_id'],true);
+//            $group_arr=json_decode($v['group_id'],true);
+            $group_arr=$v['group_id'];
             $group_name='';
             $v['group_name']=$group_name;
             if(!empty($group_arr)){
@@ -191,15 +192,18 @@ class NodeController extends Controller
             return redirect(route('admin.node.create',['type'=>$params['type']]))->withErrors(['status'=>'服务端口不能为空']);
         }
         $arr=[
-            'group_id'=>json_encode(explode(',',$params['group_id'])),
+//            'group_id'=>json_encode(explode(',',$params['group_id'])),
+            'group_id'=>explode(',',$params['group_id']),
             'name'=>$params['name'],
             'rate'=>$params['rate']?$params['rate']:'',
             'host'=>$params['host'],
             'port'=>$params['port'],
             'server_port'=>$params['server_port'],
             'parent_id'=>$params['parent_id']?$params['parent_id']:null,
-            'route_id'=>$params['route_id']?json_encode(array_values(explode(',',$params['route_id']))):null,
-            'tags'=>$params['tags']?json_encode(array_values(explode(',',$params['tags']))):null,
+//            'route_id'=>$params['route_id']?json_encode(array_values(explode(',',$params['route_id']))):null,
+            'route_id'=>$params['route_id']?array_values(explode(',',$params['route_id'])):null,
+//            'tags'=>$params['tags']?json_encode(array_values(explode(',',$params['tags']))):null,
+            'tags'=>$params['tags']?array_values(explode(',',$params['tags'])):null,
         ];
 
 
@@ -267,7 +271,7 @@ class NodeController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            echo '<pre>';print_r($e->getMessage());exit;
+//            echo '<pre>';print_r($e->getMessage());exit;
             return redirect(route('admin.node.create',['type'=>$params['type']]))->withErrors(['status'=>'操作失败']);
         }
         DB::commit();
@@ -288,9 +292,12 @@ class NodeController extends Controller
 
         $groups=ServerGroup::pluck('name','id')->toArray();
         $routes=ServerRoute::pluck('remarks','id')->toArray();
-        $node['tags']=!empty($node['tags'])?implode(',',json_decode($node['tags'],true)):$node['tags'];
-        $node['group_id']=json_decode($node['group_id'],true);
-        $node['route_id']=!empty($node['route_id'])?json_decode($node['route_id'],true):$node['route_id'];
+//        $node['tags']=!empty($node['tags'])?implode(',',json_decode($node['tags'],true)):$node['tags'];
+        $node['tags']=!empty($node['tags'])?implode(',',$node['tags']):$node['tags'];
+//        $node['group_id']=json_decode($node['group_id'],true);
+//        $node['group_id']=$node['group_id'];
+//        $node['route_id']=!empty($node['route_id'])?json_decode($node['route_id'],true):$node['route_id'];
+//        $node['route_id']=!empty($node['route_id'])?$node['route_id']:$node['route_id'];
 
         if($node['type']==0){
             $node['obfs_settings']=json_decode($node['obfs_settings'],true);
@@ -343,19 +350,22 @@ class NodeController extends Controller
         }
 
         $arr=[
-            'group_id'=>json_encode(explode(',',$params['group_id'])),
+//            'group_id'=>json_encode(explode(',',$params['group_id'])),
+            'group_id'=>explode(',',$params['group_id']),
             'name'=>$params['name'],
             'rate'=>$params['rate']?$params['rate']:'',
             'host'=>$params['host'],
             'port'=>$params['port'],
             'server_port'=>$params['server_port'],
             'parent_id'=>$params['parent_id']?$params['parent_id']:null,
-            'route_id'=>$params['route_id']?json_encode(array_values(explode(',',$params['route_id']))):null,
-            'tags'=>$params['tags']?json_encode(array_values(explode(',',$params['tags']))):null,
+//            'route_id'=>$params['route_id']?json_encode(array_values(explode(',',$params['route_id']))):null,
+            'route_id'=>$params['route_id']?array_values(explode(',',$params['route_id'])):null,
+//            'tags'=>$params['tags']?json_encode(array_values(explode(',',$params['tags']))):null,
+            'tags'=>$params['tags']?array_values(explode(',',$params['tags'])):null,
             'updated_at'=>time()
         ];
 
-
+//        print_r($arr);exit;
 
 
         if($params['type']==0){

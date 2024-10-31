@@ -95,7 +95,7 @@ class StatisticalService {
         } else {
             $this->serverStats[$serverType][$serverId] = [$u, $d];
         }
-        Cache::set("stat_server_{$this->startAt}", json_encode($this->serverStats));
+        Cache::put("stat_server_{$this->startAt}", json_encode($this->serverStats));
     }
 
     public function statUser($rate, $userId, $u, $d)
@@ -107,7 +107,7 @@ class StatisticalService {
         } else {
             $this->userStats[$rate][$userId] = [$u, $d];
         }
-        Cache::set("stat_user_{$this->startAt}", json_encode($this->userStats));
+        Cache::put("stat_user_{$this->startAt}", json_encode($this->userStats));
     }
 
     public function getStatUserByUserID($userId): array
@@ -131,7 +131,7 @@ class StatisticalService {
         $stats = [];
         foreach ($this->userStats as $k => $v) {
             foreach (array_keys($v) as $userId) {
-                if (isset($v[$userId])) {
+                if (isset($v[$userId])&& $userId>0) {
                     $stats[] = [
                         'server_rate' => $k,
                         'u' => $v[$userId][0],

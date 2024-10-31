@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Utils\CacheKey;
 use Closure;
-use App\Models\User;
+use App\Models\V2user as User;
 use Illuminate\Support\Facades\Cache;
 
 class Client

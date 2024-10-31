@@ -14,17 +14,22 @@
         color: #FFB800;
     }
 
-    /*.layui-body{overflow-y: scroll;}*/
+    .layui-body{overflow-y: scroll;}
 
-    /*body{overflow-y: scroll;}*/
+    body{overflow-y: scroll;}
 
-    /*table {*/
-        /*table-layout: fixed;*/
-        /*word-break: break-all;*/
-    /*}*/
-    /*td {*/
-        /*overflow:auto;*/
-    /*}*/
+    table {
+        table-layout: fixed;
+        word-break: break-all;
+    }
+    td {
+        overflow:auto;
+    }
+
+    div.layui-table-fixed-r{
+        position: static;
+        display: none;
+    }
 
 </style>
 
@@ -222,7 +227,7 @@
                     ,url: "{{ route('admin.v2user.data',['invite_user_id'=>$invite_user_id]) }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        {checkbox: true,fixed: true}
+                        // {checkbox: true,fixed: true}
                         ,{field: 'id', title: 'ID',sort: true}
                         ,{field: 'email', width:'10%',title: '邮箱'}
                         ,{field: 'banned_val', title: '状态',sort: true}

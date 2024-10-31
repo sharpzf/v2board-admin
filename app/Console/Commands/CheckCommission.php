@@ -78,7 +78,7 @@ class CheckCommission extends Command
         }
     }
 
-    public function payHandle($inviteUserId, Order $order)
+    public function payHandle($inviteUserId,$order)
     {
         $level = 3;
         if ((int)config('v2board.commission_distribution_enable', 0)) {

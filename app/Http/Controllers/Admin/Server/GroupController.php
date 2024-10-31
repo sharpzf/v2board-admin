@@ -40,7 +40,8 @@ class GroupController extends Controller
             $v['user_count'] = User::where('group_id', $v['id'])->count();
             $v['server_count'] = 0;
             foreach ($servers as $server) {
-                $server_group_id=json_decode($servers[0]['group_id'],true);
+//                $server_group_id=json_decode($servers[0]['group_id'],true);
+                $server_group_id=$servers[0]['group_id'];
 //                if (in_array($v['id'], $server['group_id'])) {
                 if (in_array($v['id'], $server_group_id)) {
                     $v['server_count'] = $v['server_count']+1;

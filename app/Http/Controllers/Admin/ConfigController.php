@@ -157,6 +157,7 @@ class ConfigController extends Controller
 
     public function update(Request $request)
     {
+
 //        return redirect(route('admin.config'))->with(['status'=>'更新成功']);
 //        return redirect(route('admin.config'))->withErrors(['status'=>'背景图不存在']);
 //        return back()->withErrors(['status' => '背景图不存在']);
@@ -264,6 +265,11 @@ class ConfigController extends Controller
             if (!empty($param['forward_url']) && !$this->checkUrl($param['forward_url'])) {
                 return back()->withErrors(['status' => '转发url地址必须为URL格式']);
             }
+            $param['is_ios_force'] = isset($param['is_ios_force'])?1:0;
+            $param['is_android_force'] = isset($param['is_android_force'])?1:0;
+            $param['is_macos_force'] = isset($param['is_macos_force'])?1:0;
+            $param['is_windows_force'] = isset($param['is_windows_force'])?1:0;
+
 //            $param['telegram_bot_enable'] = isset($param['telegram_bot_enable'])?1:0;
             Cache::forever('forward_url', $param['forward_url']);
             Cache::forever('api_key', $param['api_key']);
@@ -272,9 +278,9 @@ class ConfigController extends Controller
         unset($param['_token']);
         unset($param['_method']);
         unset($param['config_type']);
-//        Config::where('name', $config_type)->update([
-//            'val' => json_encode($param)
-//        ]);
+        Config::where('name', $config_type)->update([
+            'val' => json_encode($param)
+        ]);
 
         $all_config = config('v2board');
         $file_data=array_merge($all_config,$param);
@@ -318,17 +324,17 @@ class ConfigController extends Controller
         $obj = new SendEmailJob([
 //            'email' => $request->user['email'],
 //            'email' => '2423550953@qq.com',
-            'email' =>env('email_test'),
+            'email' =>env('email_test','2423550953@qq.com'),
 //            'subject' => 'This is v2board test email',
             'subject' => 'This is test email',
             'template_name' => 'notify',
             'template_value' => [
-//                'name' => config('v2board.app_name', 'V2Board'),
-                'name' => Cache::get('mail.from.name','V2Board'),
+                'name' => config('v2board.app_name', 'V2Board'),
+//                'name' => Cache::get('mail.from.name','V2Board'),
 //                'content' => 'This is v2board test email',
                 'content' => 'This is test email',
-//                'url' => config('v2board.app_url')
-                'url' => Cache::get('mail.from.url','/')
+                'url' => config('v2board.app_url')
+//                'url' => Cache::get('mail.from.url','/')
             ]
         ]);
 

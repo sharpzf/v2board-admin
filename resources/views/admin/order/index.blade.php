@@ -14,17 +14,17 @@
         color: #FFB800;
     }
 
-    /*.layui-body{overflow-y: scroll;}*/
+    .layui-body{overflow-y: scroll;}
 
-    /*body{overflow-y: scroll;}*/
+    body{overflow-y: scroll;}
 
-    /*table {*/
-    /*table-layout: fixed;*/
-    /*word-break: break-all;*/
-    /*}*/
-    /*td {*/
-    /*overflow:auto;*/
-    /*}*/
+    table {
+    table-layout: fixed;
+    word-break: break-all;
+    }
+    td {
+    overflow:auto;
+    }
 
 </style>
 
@@ -76,10 +76,8 @@
             <script type="text/html" id="options">
                 <div class="layui-btn-group">
                     @can('finance.order.detail')
-                        {{--<script type="text/html" id="thumb">--}}
-                        {{--<a href="@{{d.thumb}}" target="_blank" title="点击查看"><img src="@{{d.thumb}}" alt="" width="28" height="28"></a>--}}
-                        {{--</script>--}}
-                        {{--<a class="layui-btn layui-btn-sm" href="{{ route('admin.order.detail',['id'=>@d.id]) }}" >详情</a>--}}
+
+                        <a class="layui-btn layui-btn-sm" >详情</a>
                     @endcan
                 </div>
             </script>
@@ -104,15 +102,18 @@
                     {{--,url: "{{ route('admin.order.data?user_id=12') }}" //数据接口--}}
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        ,{field: 'id', title: 'ID',sort: true},
-                        {field: 'trade_no',width:'15%', title: '# 订单号',templet: function(d){
-                                return '<a  class="layui-btn layui-btn-xs" href="' + d.trade_no_url + '">' + d.trade_no_val + '</a>';
-                            }}
-                        ,{field: 'type_val',title: '类型'}
-                        ,{field: 'plan_name',widht:'10%',  title: '订阅计划'}
-                        ,{field: 'period_val',title: '周期'}
-                        ,{field: 'total_amount_val',widht:'10%',  title: '支付金额'}
-                        ,{field: 'status_val', title: '订单状态',width:'15%',templet: function(d){
+                        // ,{field: 'id', title: 'ID',sort: true},
+                        // {field: 'trade_no',width:'15%', title: '# 订单号',templet: function(d){
+                        //         return '<a  class="layui-btn layui-btn-xs" href="' + d.trade_no_url + '">' + d.trade_no_val + '</a>';
+                        //     }}
+                        // {checkbox: true,fixed: true},
+                        {field: 'trade_no',title: '订单号',width:'27%'}
+                        ,{field: 'email',title: '邮箱',width:'17%'}
+                        ,{field: 'type_val',title: '类型',width:'5%'}
+                        ,{field: 'plan_name', title: '订阅计划',width:'10%'}
+                        ,{field: 'period_val',title: '周期',width:'10%'}
+                        ,{field: 'total_amount_val', title: '支付金额',width:'10%'}
+                        ,{field: 'status_val', width:'13%',title: '订单状态',templet: function(d){
                             if(d.status==0){
                                 return d.status_val+'<br><a class="diy_cancel" href="' + d.cancel_url + '">标记为取消</a>'+'<br><a class="diy_paid" href="' + d.paid_url + '">标记为已支付</a>';
                             }else{
@@ -120,8 +121,8 @@
                             }
 
                         }}
-                        ,{field: 'commission_balance_val',widht:'10%',  title: '佣金金额'}
-                        ,{field: 'commission_status_val', title: '佣金状态',width:'15%',templet: function(d){
+                        ,{field: 'commission_balance_val', title: '佣金金额',width:'10%'}
+                        ,{field: 'commission_status_val',width:'10%', title: '佣金状态',templet: function(d){
                                     if(d.status!=0 &&d.status!=2 && d.commission_status==0){
                                         return d.commission_status_val+'<br><a class="diy_cancel" href="' + d.set_invalid + '">标记为无效</a>'+'<br><a class="diy_paid" href="' + d.set_effective + '">标记为有效</a>';
                                     }else if(d.status!=0 &&d.status!=2 && d.commission_status==1){
@@ -132,8 +133,8 @@
                                         return '' + d.commission_status_val + '';
                                      }
                             }}
-                        ,{field: 'created_at_val',widht:'20%', title: '创建时间'}
-                        // ,{fixed: 'right',widht:'20%',align:'center', toolbar: '#options'}
+                        ,{field: 'created_at_val', title: '创建时间',width:'17%'}
+                        // ,{fixed: 'right',width:'20%',align:'center', toolbar: '#options'}
                     ]]
                 });
 

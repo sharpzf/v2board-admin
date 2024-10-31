@@ -43,7 +43,10 @@ class UniProxyController extends Controller
     {
         ini_set('memory_limit', -1);
         Cache::put(CacheKey::get('SERVER_' . strtoupper($this->nodeType) . '_LAST_CHECK_AT', $this->nodeInfo->id), time(), 3600);
+
+//       $group_id=json_decode($this->nodeInfo->group_id,true);
         $users = $this->serverService->getAvailableUsers($this->nodeInfo->group_id);
+//        $users = $this->serverService->getAvailableUsers($group_id);
         $users = $users->toArray();
 
         $response['users'] = $users;

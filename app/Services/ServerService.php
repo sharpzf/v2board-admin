@@ -24,7 +24,14 @@ class ServerService
         foreach ($vmess as $key => $v) {
             if (!$v['show']) continue;
             $vmess[$key]['type'] = 'vmess';
-            if (!in_array($user->group_id, $vmess[$key]['group_id'])) continue;
+
+            $group_id=is_array($vmess[$key]['group_id'])?$vmess[$key]['group_id']:json_decode($vmess[$key]['group_id'],true);
+
+
+            // if (!in_array($user->group_id, $vmess[$key]['group_id'])) continue;
+            if (!in_array($user->group_id, $group_id)) continue;
+
+
             if (strpos($vmess[$key]['port'], '-') !== false) {
                 $vmess[$key]['port'] = Helper::randomPort($vmess[$key]['port']);
             }
@@ -94,7 +101,13 @@ class ServerService
             if (!$v['show']) continue;
             $shadowsocks[$key]['type'] = 'shadowsocks';
             $shadowsocks[$key]['last_check_at'] = Cache::get(CacheKey::get('SERVER_SHADOWSOCKS_LAST_CHECK_AT', $v['id']));
-            if (!in_array($user->group_id, $v['group_id'])) continue;
+
+
+            $group_id=is_array($v['group_id'])?$v['group_id']:json_decode($v['group_id'],true);
+            // var_dump($group_id);exit;
+
+            // if (!in_array($user->group_id, $v['group_id'])) continue;
+            if (!in_array($user->group_id, $group_id)) continue;
             if (strpos($v['port'], '-') !== false) {
                 $shadowsocks[$key]['port'] = Helper::randomPort($v['port']);
             }
@@ -251,6 +264,7 @@ class ServerService
 
     public function getRoutes(array $routeIds)
     {
+        // var_dump($routeIds);exit;
         $routes = ServerRoute::select(['id', 'match', 'action', 'action_value'])->whereIn('id', $routeIds)->get();
         // TODO: remove on 1.8.0
         foreach ($routes as $k => $route) {

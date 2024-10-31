@@ -1013,6 +1013,15 @@
 
 
                             <div class="layui-form-item">
+                                <label for="" class="layui-form-label">联系邮箱</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="contact_email" value="{{ $config['sys_app']['contact_email']??'' }}" placeholder="请输入联系邮箱" class="layui-input" >
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端版本号及下载地址</div>--}}
+                            </div>
+
+
+                            <div class="layui-form-item">
                                 <label for="" class="layui-form-label">Windows版本号</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="windows_version" value="{{ $config['sys_app']['windows_version']??'' }}" placeholder="1.0.0" class="layui-input" >
@@ -1084,6 +1093,16 @@
                                     </div>
                                 </div>
 
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Windows是否强制更新</label>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="is_windows_force" lay-skin="switch"  @if(isset($config['sys_app']['is_windows_force'])&&$config['sys_app']['is_windows_force']=='1') checked @endif>
+                                    {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">开启后bot将会对绑定了telegram的管理员和用户进行基础通知。</div>--}}
                             </div>
 
 
@@ -1161,6 +1180,15 @@
 
                             </div>
 
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">macOS是否强制更新</label>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="is_macos_force" lay-skin="switch"  @if(isset($config['sys_app']['is_macos_force'])&&$config['sys_app']['is_macos_force']=='1') checked @endif>
+                                    {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">开启后bot将会对绑定了telegram的管理员和用户进行基础通知。</div>--}}
+                            </div>
+
 
                             <div class="layui-form-item">
                                 <label for="" class="layui-form-label">Android版本号</label>
@@ -1236,8 +1264,101 @@
 
                             </div>
 
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Android是否强制更新</label>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="is_android_force" lay-skin="switch"  @if(isset($config['sys_app']['is_android_force'])&&$config['sys_app']['is_android_force']=='1') checked @endif>
+                                    {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">开启后bot将会对绑定了telegram的管理员和用户进行基础通知。</div>--}}
+                            </div>
 
 
+
+
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Ios版本号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ios_version" value="{{ $config['sys_app']['ios_version']??'' }}" placeholder="1.0.0" class="layui-input" >
+                                    {{--<input type="text" style="margin-top: 3px" name="windows_download_url" value="{{ $config['sys_app']['windows_download_url']??'' }}" placeholder="https://xxxx.com/xxx.exe" class="layui-input" >--}}
+                                    {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端版本号</div>--}}
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Ios端注册url</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ios_reg_url" value="{{ $config['sys_app']['ios_reg_url']??'' }}" placeholder="请输入Ios端注册url" class="layui-input" >
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端下载地址2</div>--}}
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Ios端找回密码url</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ios_pwd_url" value="{{ $config['sys_app']['ios_pwd_url']??'' }}" placeholder="请输入Ios端找回密码url" class="layui-input" >
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端下载地址2</div>--}}
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline" style="width: 45%">
+                                    <label class="layui-form-label">Ios下载地址1</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="ios_download_url" value="{{ $config['sys_app']['ios_download_url']??'' }}" placeholder="https://xxxx.com/xxx.ipa" class="layui-input" >
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">Ios下载地址2</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="ios_download_url2" value="{{ $config['sys_app']['ios_download_url2']??'' }}" placeholder="https://xxxx.com/xxx.ipa" class="layui-input" >
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item">
+
+                                <div class="layui-inline" style="width: 45%">
+                                    <label for="" class="layui-form-label">Ios端api url1</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="ios_api_url1" value="{{ $config['sys_app']['ios_api_url1']??'' }}" placeholder="请输入Ios端api url1" class="layui-input" >
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <label for="" class="layui-form-label">Ios端api url2</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="ios_api_url2" value="{{ $config['sys_app']['ios_api_url2']??'' }}" placeholder="请输入Ios端api url2" class="layui-input" >
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item">
+
+                                <div class="layui-inline" style="width: 45%">
+                                    <label for="" class="layui-form-label">Ios端购买Url1</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="ios_buy_url1" value="{{ $config['sys_app']['ios_buy_url1']??'' }}" placeholder="请输入Ios端购买Url1" class="layui-input" >
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <label for="" class="layui-form-label">Ios端购买Url2</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="ios_buy_url2" value="{{ $config['sys_app']['ios_buy_url2']??'' }}" placeholder="请输入Ios端购买Url2" class="layui-input" >
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Ios是否强制更新</label>
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="is_ios_force" lay-skin="switch"  @if(isset($config['sys_app']['is_ios_force'])&&$config['sys_app']['is_ios_force']=='1') checked @endif>
+                                    {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">开启后bot将会对绑定了telegram的管理员和用户进行基础通知。</div>--}}
+                            </div>
 
 
 

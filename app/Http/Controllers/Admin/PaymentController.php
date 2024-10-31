@@ -130,7 +130,8 @@ class PaymentController extends Controller
             'WechatPayNative'=>['app_id','mch_id','api_key']
         ];
         $config_arr=array_combine($arr_keys[$params['payment']],$params[$params['payment']]);
-        $arr['config']=json_encode($config_arr);
+//        $arr['config']=json_encode($config_arr);
+        $arr['config']=$config_arr;
         $arr['uuid']=Helper::randomChar(8);
         
         if (!Payment::create($arr)) {
@@ -148,7 +149,8 @@ class PaymentController extends Controller
             return redirect(route('admin.payment'))->withErrors(['status'=>'支付方式不存在']);
         }
         $payment=$payment->toArray();
-        $payment['config']=json_decode($payment['config'],true);
+//        $payment['config']=json_decode($payment['config'],true);
+//        $payment['config']=$payment['config'];
         $pay_method = $this->getPaymentMethods();
 
         return view('admin.payment.edit',compact('payment','pay_method'));
@@ -195,7 +197,8 @@ class PaymentController extends Controller
                 'WechatPayNative'=>['app_id','mch_id','api_key']
             ];
             $config_arr=array_combine($arr_keys[$params['payment']],$params[$params['payment']]);
-            $arr['config']=json_encode($config_arr);
+//            $arr['config']=json_encode($config_arr);
+            $arr['config']=$config_arr;
             $arr['id']=$id;
 
             $payment->update($arr);

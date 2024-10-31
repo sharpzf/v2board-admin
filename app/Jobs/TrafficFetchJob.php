@@ -45,6 +45,7 @@ class TrafficFetchJob implements ShouldQueue
     public function handle()
     {
         $user = User::lockForUpdate()->find($this->userId);
+//        info("请求了流量消费的队列,时间：".$time1.',用户信息 u:'.$this->u.' d:'.$this->d.' userId:'.$this->userId.' server:'.$this->server.' protocol:'.$this->protocol);
         if (!$user) return;
 
         $user->t = time();

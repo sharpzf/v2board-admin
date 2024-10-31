@@ -46,7 +46,8 @@ class TicketController extends Controller
         ]);
     }
 
-    public function save(TicketSave $request)
+//    public function save(TicketSave $request)
+    public function save(Request $request)
     {
         DB::beginTransaction();
         if ((int)Ticket::where('status', 0)->where('user_id', $request->user['id'])->lockForUpdate()->count()) {
@@ -140,7 +141,8 @@ class TicketController extends Controller
             ->first();
     }
 
-    public function withdraw(TicketWithdraw $request)
+//    public function withdraw(TicketWithdraw $request)
+    public function withdraw(Request $request)
     {
         if ((int)config('v2board.withdraw_close_enable', 0)) {
             abort(500, 'user.ticket.withdraw.not_support_withdraw');

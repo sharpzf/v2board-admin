@@ -99,6 +99,15 @@ class OrderController extends Controller
         ];
 
         $plan = Plan::get();
+        if(!empty($res['data'])){
+            $user_id=array_column($res['data'],'user_id');
+            $users=User::whereIn('id',$user_id)->select(['id','email'])->get()->toArray();
+            $users=array_column($users,'email','id');
+        }
+
+
+
+
 //        for ($i = 0; $i < count($res); $i++) {
         for ($i = 0; $i < count($res['data']); $i++) {
             for ($k = 0; $k < count($plan); $k++) {
@@ -113,8 +122,9 @@ class OrderController extends Controller
                 $res['data'][$i]['set_confirmed']=route('admin.order.set',['id'=>$res['data'][$i]['id'],'commission_status'=>0]);
 
 
-                $res['data'][$i]['trade_no_val']=$this->maskString($res['data'][$i]['trade_no'],3,26);
+//                $res['data'][$i]['trade_no_val']=$this->maskString($res['data'][$i]['trade_no'],3,26);
                 $res['data'][$i]['type_val']=$type_arr[$res['data'][$i]['type']];
+                $res['data'][$i]['email']=$users[$res['data'][$i]['user_id']];
 
                 $res['data'][$i]['status_val']=$order_status[$res['data'][$i]['status']];
                 $res['data'][$i]['period_val']=$period_arr[$res['data'][$i]['period']];

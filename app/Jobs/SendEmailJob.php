@@ -37,43 +37,20 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-//        if (config('v2board.email_host')) {
-        if (Cache::get('mail.host')) {
-//            Config::set('mail.host', config('v2board.email_host', env('mail.host')));
-//            $email_host=Cache::get('mail.host')?Cache::get('mail.host'):env('email_host');
-            Config::set('mail.host', Cache::get('mail.host',env('email_host')));
-
-//            Config::set('mail.port', config('v2board.email_port', env('mail.port')));
-//            $email_port=Cache::get('mail.port')?Cache::get('mail.port'):env('email_port');
-            Config::set('mail.port', Cache::get('mail.port',env('email_port')));
-
-//            Config::set('mail.encryption', config('v2board.email_encryption', env('mail.encryption')));
-//            $email_encryption=Cache::get('mail.encryption')?Cache::get('mail.encryption'):env('email_encryption');
-            Config::set('mail.encryption', Cache::get('mail.encryption',env('email_encryption')));
-
-//            Config::set('mail.username', config('v2board.email_username', env('mail.username')));
-//            $email_username=Cache::get('mail.username')?Cache::get('mail.username'):env('email_username');
-            Config::set('mail.username', Cache::get('mail.username',env('email_username')));
-
-//            Config::set('mail.password', config('v2board.email_password', env('mail.password')));
-//            $email_password=Cache::get('mail.password')?Cache::get('mail.password'):env('email_password');
-            Config::set('mail.password', Cache::get('mail.password',env('email_password')));
-
-//            Config::set('mail.from.address', config('v2board.email_from_address', env('mail.from.address')));
-//            $email_from_address=Cache::get('mail.from.address')?Cache::get('mail.from.address'):env('email_from_address');
-            Config::set('mail.from.address', Cache::get('mail.from.address',env('email_from_address')));
-
-//            Config::set('mail.from.name', config('v2board.app_name', 'V2Board'));
-//            $app_name=Cache::get('mail.from.name')?Cache::get('mail.from.name'):'V2Board';
-            Config::set('mail.from.name',Cache::get('mail.from.name','V2Board'));
+        if (config('v2board.email_host')) {
+            Config::set('mail.host', config('v2board.email_host', env('mail.host')));
+            Config::set('mail.port', config('v2board.email_port', env('mail.port')));
+            Config::set('mail.encryption', config('v2board.email_encryption', env('mail.encryption')));
+            Config::set('mail.username', config('v2board.email_username', env('mail.username')));
+            Config::set('mail.password', config('v2board.email_password', env('mail.password')));
+            Config::set('mail.from.address', config('v2board.email_from_address', env('mail.from.address')));
+            Config::set('mail.from.name', config('v2board.app_name', 'V2Board'));
         }
         $params = $this->params;
         $email = $params['email'];
         $subject = $params['subject'];
+        $params['template_name'] = 'mail.' . config('v2board.email_template', 'default') . '.' . $params['template_name'];
 
-        $select_email_template=Cache::get('mail.email_template',env('email_template'));
-//        $params['template_name'] = 'mail.' . config('v2board.email_template', 'default') . '.' . $params['template_name'];
-        $params['template_name'] = 'mail.' . $select_email_template . '.' . $params['template_name'];
 
         try {
             Mail::send(
