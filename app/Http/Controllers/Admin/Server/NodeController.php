@@ -86,7 +86,7 @@ class NodeController extends Controller
             },'hysteria'=>function($query){
                 $query->select(['id','parent_id','server_id']);
             }
-        ])->orderBy('created_at', 'DESC');
+        ])->orderBy('sort', 'ASC')->orderBy('updated_at', 'DESC');
         $params=$request->all();
         if (isset($params['type']) && $params['type']>-1) {
             $model->where('type', $params['type']);
@@ -452,6 +452,23 @@ class NodeController extends Controller
         return response([
             'data' => $server->delete()
         ]);
+    }
+
+
+    public function sort(Request $request)
+    {
+        $params=$request->all();
+        $node = Node::find($params['id']);
+
+        $arr=[
+            'sort'=>$params['sort'],
+            'updated_at'=>time()
+        ];
+        if($node->update($arr)){
+            return response()->json(['code'=>1,'msg'=>'操作成功']);
+        }
+
+        return response()->json(['code'=>0,'msg'=>'操作成功']);
     }
 
 

@@ -20,12 +20,12 @@
     </div>
 </div>
 
-<div class="layui-form-item">
-    <label for="" class="layui-form-label">手机号</label>
-    <div class="layui-input-inline">
-        <input type="text" name="phone" value="{{$user->phone??old('phone')}}" required="phone" lay-verify="phone" placeholder="请输入手机号" class="layui-input">
-    </div>
-</div>
+{{--<div class="layui-form-item">--}}
+    {{--<label for="" class="layui-form-label">手机号</label>--}}
+    {{--<div class="layui-input-inline">--}}
+        {{--<input type="text" name="phone" value="{{$user->phone??old('phone')}}" required="phone" lay-verify="phone" placeholder="请输入手机号" class="layui-input">--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 <div class="layui-form-item">
     <label for="" class="layui-form-label">密码</label>

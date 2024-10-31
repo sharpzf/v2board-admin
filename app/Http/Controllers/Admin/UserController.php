@@ -103,6 +103,9 @@ class UserController extends Controller
         if (empty($ids)){
             return response()->json(['code'=>1,'msg'=>'请选择删除项']);
         }
+        if (in_array(1,$ids)){
+            return response()->json(['code'=>1,'msg'=>'超级管理员不能删除']);
+        }
         if (User::destroy($ids)){
             return response()->json(['code'=>0,'msg'=>'删除成功']);
         }

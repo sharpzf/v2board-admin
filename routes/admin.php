@@ -269,6 +269,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
 
         //复制
         Route::get('node/copy','Server\\NodeController@copy')->name('admin.node.copy')->middleware('permission:server.node.copy');
+        Route::post('node/sort','Server\\NodeController@sort')->name('admin.node.sort')->middleware('permission:server.node.sort');
     });
 
     //权限组管理

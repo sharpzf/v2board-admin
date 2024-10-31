@@ -55,16 +55,56 @@
 
 @section('script')
     @can('server.node')
+
+        <script src="/ext/soulTable.slim.js" type="text/javascript" charset="utf-8"></script>
         <script>
-            layui.use(['layer','table','form'],function () {
+            layui.use(['layer','table','form','soulTable'],function () {
                 var layer = layui.layer;
                 var form = layui.form;
                 var table = layui.table;
+                var soulTable = layui.soulTable;
                 //用户表格初始化
                 var dataTable = table.render({
+                    id: '#dataTable',
                     elem: '#dataTable'
                     ,height: 500
                     ,url: "{{ route('admin.node.data') }}" //数据接口
+                    ,rowDrag: {done: function(obj) {
+                            // 完成时（松开时）触发
+                            // 如果拖动前和拖动后无变化，则不会触发此方法
+                            // console.log(obj.row) // 当前行数据
+                            // console.log(obj.cache) // 改动后全表数据
+                            // console.log(obj.oldIndex) // 原来的数据索引
+                            // console.log(obj.newIndex) // 改动后数据索引
+
+                            var row_id = obj.row.id      // 当前id
+                            var row_sort = obj.newIndex+1         // 拖动后的排序
+
+                            // console.log(row_id)
+                            // console.log(row_sort)
+
+                            $.ajax({
+                                url:"{{ route('admin.node.sort') }}",
+                                type:'POST',
+                                dataType:'JSON',
+                                data:{id:row_id,sort:row_sort},
+                                success:function (res) {
+
+
+                                    layer.msg(res.msg, {
+                                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                    });
+
+                                    // layer.msg(res.msg, {
+                                    //     time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                    // }, function(){
+                                    //     //do something
+                                    //     location.reload()
+                                    // });
+                                }
+                            })
+                        }}
+                    ,totalRow: true
                     ,page: true //开启分页
                     ,cols: [[ //表头
                         {field: 'id_show', title: '节点ID'}
@@ -85,7 +125,13 @@
                         ,{field: 'group_name', title: '权限组'}
                         ,{fixed: 'right',align:'center',width:'20%', toolbar: '#options'}
                     ]]
+                    ,page: true
+                    ,done: function () {
+                        soulTable.render(this)
+                    }
                 });
+
+
 
                 //监听工具条
                 table.on('tool(dataTable)', function(obj){ //注：tool是工具条事件名，dataTable是table原始容器的属性 lay-filter="对应的值"
@@ -117,7 +163,11 @@
                             });
                         });
                     }
+
                 });
+
+
+
 
 
                 //监听配送操作
@@ -173,7 +223,8 @@
                     dataTable.reload({
                         where:{type:type,name:name},
                         page:{curr:1}
-                    })
+                    });
+                    return false;
                 })
             })
         </script>

@@ -5,7 +5,7 @@
         <div class="layui-card-header layuiadmin-card-header-auto">
             <div class="layui-btn-group ">
                 @can('system.permission.destroy')
-                    <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删 除</button>
+                    {{--<button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删 除</button>--}}
                 @endcan
                 @can('system.permission.create')
                     <a class="layui-btn layui-btn-sm" href="{{ route('admin.permission.create') }}">添 加</a>
@@ -27,7 +27,6 @@
                         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
                     @endcan
                     @can('system.permission.destroy')
-                        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
                     @endcan
                 </div>
             </script>

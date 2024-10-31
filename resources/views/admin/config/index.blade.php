@@ -92,7 +92,7 @@
                 <li>安全</li>
                 <li>订阅</li>
                 <li>邀请&佣金</li>
-                <li>个性化</li>
+                {{--<li>个性化</li>--}}
                 <li>节点</li>
                 <li>邮件</li>
                 <li>Telegram</li>
@@ -687,77 +687,77 @@
                     </div>
                 </div>
 
-                <div class="layui-tab-item">
-                    <div class="personal">如果你采用前后分离的方式部署V2board管理端，那么本页配置将不会生效。了解
-                        <a  target="_blank" href="https://docs.v2board.com/use/advanced.html#%E5%89%8D%E7%AB%AF%E5%88%86%E7%A6%BB">前后分离</a>
-                        </div>
+                {{--<div class="layui-tab-item">--}}
+                    {{--<div class="personal">如果你采用前后分离的方式部署V2board管理端，那么本页配置将不会生效。了解--}}
+                        {{--<a  target="_blank" href="https://docs.v2board.com/use/advanced.html#%E5%89%8D%E7%AB%AF%E5%88%86%E7%A6%BB">前后分离</a>--}}
+                        {{--</div>--}}
                     {{--<hr class="layui-bg-red">--}}
 
 
-                    <div class="layui-card-body">
-                        <form class="layui-form" action="{{route('admin.config.update')}}" method="post">
-                            {{csrf_field()}}
-                            {{method_field('put')}}
+                    {{--<div class="layui-card-body">--}}
+                        {{--<form class="layui-form" action="{{route('admin.config.update')}}" method="post">--}}
+                            {{--{{csrf_field()}}--}}
+                            {{--{{method_field('put')}}--}}
 
-                            <div class="layui-form-item">
-                                <label for="" class="layui-form-label">边栏风格</label>
-                                <div class="layui-input-inline">
-                                    <input type="checkbox" name="frontend_theme_sidebar" lay-skin="switch" lay-text="亮|暗"  @if(isset($config['sys_personal']['frontend_theme_sidebar'])&&$config['sys_personal']['frontend_theme_sidebar']=='light') checked @endif>
+                            {{--<div class="layui-form-item">--}}
+                                {{--<label for="" class="layui-form-label">边栏风格</label>--}}
+                                {{--<div class="layui-input-inline">--}}
+                                    {{--<input type="checkbox" name="frontend_theme_sidebar" lay-skin="switch" lay-text="亮|暗"  @if(isset($config['sys_personal']['frontend_theme_sidebar'])&&$config['sys_personal']['frontend_theme_sidebar']=='light') checked @endif>--}}
                                     {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
-                                </div>
+                                {{--</div>--}}
                                 {{--<div class="layui-form-mid layui-word-aux">开启后只有被邀请的用户才可以进行注册。</div>--}}
-                            </div>
+                            {{--</div>--}}
 
 
-                            <div class="layui-form-item">
-                                <label for="" class="layui-form-label">头部风格</label>
-                                <div class="layui-input-inline">
-                                    <input type="checkbox" name="frontend_theme_header" lay-skin="switch" lay-text="亮|暗"  @if(isset($config['sys_personal']['frontend_theme_header'])&&$config['sys_personal']['frontend_theme_header']=='light') checked @endif>
+                            {{--<div class="layui-form-item">--}}
+                                {{--<label for="" class="layui-form-label">头部风格</label>--}}
+                                {{--<div class="layui-input-inline">--}}
+                                    {{--<input type="checkbox" name="frontend_theme_header" lay-skin="switch" lay-text="亮|暗"  @if(isset($config['sys_personal']['frontend_theme_header'])&&$config['sys_personal']['frontend_theme_header']=='light') checked @endif>--}}
                                     {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
-                                </div>
+                                {{--</div>--}}
                                 {{--<div class="layui-form-mid layui-word-aux">开启后只有被邀请的用户才可以进行注册。</div>--}}
-                            </div>
+                            {{--</div>--}}
 
 
 
-                            <div class="layui-form-item">
-                                <label for="" class="layui-form-label">主题色</label>
-                                <div class="layui-input-inline">
-                                    <select name="frontend_theme_color" lay-filter="frontend_theme_color">
-                                      <option value="default" @if($config['sys_personal']['frontend_theme_color']=='default') selected @endif >默认</option>
-                                      <option value="black" @if($config['sys_personal']['frontend_theme_color']=='black') selected @endif >黑色</option>
-                                      <option value="darkblue" @if($config['sys_personal']['frontend_theme_color']=='darkblue') selected @endif >暗蓝色</option>
-                                      <option value="green" @if($config['sys_personal']['frontend_theme_color']=='green') selected @endif >奶绿色</option>
-                                    </select>
-                                </div>
+                            {{--<div class="layui-form-item">--}}
+                                {{--<label for="" class="layui-form-label">主题色</label>--}}
+                                {{--<div class="layui-input-inline">--}}
+                                    {{--<select name="frontend_theme_color" lay-filter="frontend_theme_color">--}}
+                                      {{--<option value="default" @if($config['sys_personal']['frontend_theme_color']=='default') selected @endif >默认</option>--}}
+                                      {{--<option value="black" @if($config['sys_personal']['frontend_theme_color']=='black') selected @endif >黑色</option>--}}
+                                      {{--<option value="darkblue" @if($config['sys_personal']['frontend_theme_color']=='darkblue') selected @endif >暗蓝色</option>--}}
+                                      {{--<option value="green" @if($config['sys_personal']['frontend_theme_color']=='green') selected @endif >奶绿色</option>--}}
+                                    {{--</select>--}}
+                                {{--</div>--}}
                                 {{--<div class="layui-form-mid layui-word-aux">全局流量重置方式，默认每月1号。可以在订阅管理为订阅单独设置</div>--}}
-                            </div>
+                            {{--</div>--}}
 
 
-                            <div class="layui-form-item">
-                                <label for="" class="layui-form-label">背景</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="frontend_background_url" value="{{ $config['sys_personal']['frontend_background_url']??'' }}" placeholder="https://xxxxx.com/wallpaper.png" class="layui-input" >
+                            {{--<div class="layui-form-item">--}}
+                                {{--<label for="" class="layui-form-label">背景</label>--}}
+                                {{--<div class="layui-input-inline">--}}
+                                    {{--<input type="text" name="frontend_background_url" value="{{ $config['sys_personal']['frontend_background_url']??'' }}" placeholder="https://xxxxx.com/wallpaper.png" class="layui-input" >--}}
                                     {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">将会在后台登录页面进行展示</div>
-                            </div>
+                                {{--</div>--}}
+                                {{--<div class="layui-form-mid layui-word-aux">将会在后台登录页面进行展示</div>--}}
+                            {{--</div>--}}
 
 
 
-                            <input type="hidden" name="config_type" value="sys_personal">
+                            {{--<input type="hidden" name="config_type" value="sys_personal">--}}
 
-                            <div class="layui-form-item">
-                                <div class="layui-input-block">
-                                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">确 认</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                            {{--<div class="layui-form-item">--}}
+                                {{--<div class="layui-input-block">--}}
+                                    {{--<button type="submit" class="layui-btn" lay-submit="" lay-filter="formDemo">确 认</button>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
+                    {{--</div>--}}
 
 
 
-                </div>
+                {{--</div>--}}
 
                 <div class="layui-tab-item">
                     {{--<table id="LAY-index-topCard">节点</table>--}}

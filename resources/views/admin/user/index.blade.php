@@ -25,7 +25,6 @@
                     <a class="layui-btn layui-btn-sm" lay-event="role">角色</a>
                     @endcan
                     @can('system.user.permission')
-                    <a class="layui-btn layui-btn-sm" lay-event="permission">权限</a>
                     @endcan
                     @can('system.user.destroy')
                     <a class="layui-btn layui-btn-danger layui-btn-sm " lay-event="del">删除</a>
@@ -55,11 +54,11 @@
                 ,cols: [[ //表头
                     {checkbox: true,fixed: true}
                     ,{field: 'id', title: 'ID', sort: true,width:80}
-                    ,{field: 'name', title: '用户名'}
+                    ,{field: 'username', title: '用户名'}
                     ,{field: 'email', title: '邮箱'}
-                    ,{field: 'phone', title: '电话'}
-                    ,{field: 'created_at', title: '创建时间'}
-                    ,{field: 'updated_at', title: '更新时间'}
+                    // ,{field: 'phone', title: '电话'}
+                    ,{field: 'created_at', title: '创建时间',width:200}
+                    ,{field: 'updated_at', title: '更新时间',width:200}
                     ,{fixed: 'right', width: 320, align:'center', toolbar: '#options'}
                 ]]
             });

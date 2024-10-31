@@ -141,8 +141,8 @@
 
         <!-- 页面标签 -->
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
-            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
-            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+            {{--<div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>--}}
+            {{--<div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>--}}
             <div class="layui-icon layadmin-tabs-control layui-icon-down">
                 <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
                     <li class="layui-nav-item" lay-unselect>
