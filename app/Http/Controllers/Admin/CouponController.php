@@ -92,8 +92,10 @@ class CouponController extends Controller
             return redirect(route('admin.coupon.create'))->withErrors(['status'=>'优惠券有效期不能为空']);
         }
 
-        $params['limit_plan_ids']=$params['limit_plan_ids']?json_encode(explode(',',$params['limit_plan_ids'])):null;
-        $params['limit_period']=$params['limit_period']?json_encode(explode(',',$params['limit_period'])):null;
+//        $params['limit_plan_ids']=$params['limit_plan_ids']?json_encode(explode(',',$params['limit_plan_ids'])):null;
+        $params['limit_plan_ids']=$params['limit_plan_ids']?explode(',',$params['limit_plan_ids']):null;
+//        $params['limit_period']=$params['limit_period']?json_encode(explode(',',$params['limit_period'])):null;
+        $params['limit_period']=$params['limit_period']?explode(',',$params['limit_period']):null;
 
         $params['started_at']=strtotime($params['started_at']);
         $params['ended_at']=strtotime($params['ended_at']);
@@ -132,8 +134,8 @@ class CouponController extends Controller
         ];
         $plan = Plan::pluck('name','id')->toArray();
 
-        $coupon['limit_plan_ids']=$coupon['limit_plan_ids']?json_decode($coupon['limit_plan_ids'],true):[];
-        $coupon['limit_period']=$coupon['limit_period']?json_decode($coupon['limit_period'],true):[];
+        $coupon['limit_plan_ids']=$coupon['limit_plan_ids']?$coupon['limit_plan_ids']:[];
+        $coupon['limit_period']=$coupon['limit_period']?$coupon['limit_period']:[];
         $coupon['started_at']=date('Y-m-d H:i:s',$coupon['started_at']);
         $coupon['ended_at']=date('Y-m-d H:i:s',$coupon['ended_at']);
         $coupon['value']=$coupon['type']==1?sprintf("%.2f", $coupon['value']/100):$coupon['value'];
@@ -155,8 +157,10 @@ class CouponController extends Controller
             return redirect(route('admin.coupon.edit',['id'=>$id]))->withErrors(['status'=>'优惠券有效期不能为空']);
         }
 
-        $params['limit_plan_ids']=$params['limit_plan_ids']?json_encode(explode(',',$params['limit_plan_ids'])):null;
-        $params['limit_period']=$params['limit_period']?json_encode(explode(',',$params['limit_period'])):null;
+//        $params['limit_plan_ids']=$params['limit_plan_ids']?json_encode(explode(',',$params['limit_plan_ids'])):null;
+        $params['limit_plan_ids']=$params['limit_plan_ids']?explode(',',$params['limit_plan_ids']):null;
+//        $params['limit_period']=$params['limit_period']?json_encode(explode(',',$params['limit_period'])):null;
+        $params['limit_period']=$params['limit_period']?explode(',',$params['limit_period']):null;
 
         $params['started_at']=strtotime($params['started_at']);
         $params['ended_at']=strtotime($params['ended_at']);
@@ -280,10 +284,12 @@ class CouponController extends Controller
         if (!Coupon::insert(array_map(function ($item) use ($coupon) {
             // format data
             if (isset($item['limit_plan_ids']) && is_array($item['limit_plan_ids'])) {
-                $item['limit_plan_ids'] = json_encode($coupon['limit_plan_ids']);
+//                $item['limit_plan_ids'] = json_encode($coupon['limit_plan_ids']);
+                $item['limit_plan_ids'] = $coupon['limit_plan_ids'];
             }
             if (isset($item['limit_period']) && is_array($item['limit_period'])) {
-                $item['limit_period'] = json_encode($coupon['limit_period']);
+//                $item['limit_period'] = json_encode($coupon['limit_period']);
+                $item['limit_period'] = $coupon['limit_period'];
             }
             return $item;
         }, $coupons))) {

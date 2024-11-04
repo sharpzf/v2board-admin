@@ -220,6 +220,9 @@ class AuthController extends Controller
                 );
             }
             abort(500, __('Incorrect email or password'));
+//            return response([
+//                'message' => __('Incorrect email or password')
+//            ],500);
         }
 
         if ($user->banned) {
