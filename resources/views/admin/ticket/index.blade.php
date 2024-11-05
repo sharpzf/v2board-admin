@@ -80,8 +80,8 @@
                         ,{field: 'subject', title: '主题'}
                         ,{field: 'level', title: '工单级别'}
                         ,{field: 'status_str', title: '工单状态'}
-                        ,{field: 'created_at', title: '创建时间'}
-                        ,{field: 'updated_at', title: '最后回复'}
+                        ,{field: 'created_at', width:'18%',title: '创建时间'}
+                        ,{field: 'updated_at', width:'18%',title: '最后回复'}
                         ,{fixed: 'right',title: '操作',align:'center',templet: function(d){
                                 if(d.status==0){
                                     return '<a class="layui-btn layui-btn-sm" lay-event="detail">查看</a><a class="layui-btn layui-btn-sm" lay-event="close">关闭</a>';

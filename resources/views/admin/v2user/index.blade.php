@@ -56,6 +56,8 @@
                     <a class="layui-btn layui-btn-sm" href="{{ route('admin.v2user.create') }}">添加</a>
                 @endcan
 
+                    <a class="layui-btn layui-btn-sm" href="{{ route('admin.index') }}">回到仪表盘</a>
+
 
             </div>
 
@@ -229,13 +231,13 @@
                     ,cols: [[ //表头
                         // {checkbox: true,fixed: true}
                         ,{field: 'id', title: 'ID',sort: true}
-                        ,{field: 'email', width:'10%',title: '邮箱'}
-                        ,{field: 'banned_val', title: '状态',sort: true}
+                        ,{field: 'email', width:'15%',title: '邮箱'}
+                        ,{field: 'banned_val',width:'8%', title: '状态',sort: true}
                         ,{field: 'plan_name', width:'10%',title: '订阅',sort: true}
                         ,{field: 'group_name', width:'10%',title: '权限组',sort: true}
                         ,{field: 'total_used', width:'10%',title: '已用(G)',sort: true}
                         ,{field: 'transfer_enable',width:'10%', title: '流量(G)',sort: true}
-                        ,{field: 'expired_at_val', width:'10%',title: '到期时间',sort: true}
+                        ,{field: 'expired_at_val', width:'18%',title: '到期时间',sort: true}
                         ,{field: 'balance_val',width:'10%', title: '余额',sort: true}
                         ,{field: 'commission_balance_val',width:'10%', title: '佣金',sort: true}
                         ,{field: 'created_at_val',width:'18%', title: '加入时间',sort: true}

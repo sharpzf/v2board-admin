@@ -45,10 +45,10 @@
                     ,url: "{{ route('admin.notice.data') }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        {field: 'id', title: '#'}
-                        ,{ field: 'show', title: '显示', templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
+                        {field: 'id', width:'5%',title: '#'}
+                        ,{ field: 'show',width:'10%', title: '显示', templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
                         ,{field: 'title', title: '标题'}
-                        ,{field: 'reset_price', title: '创建时间'}
+                        ,{field: 'created_at', title: '创建时间'}
                         ,{fixed: 'right',align:'center', toolbar: '#options'}
                     ]]
                 });

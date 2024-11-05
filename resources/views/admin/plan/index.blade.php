@@ -10,6 +10,7 @@
                 @can('finance.plan.create')
                     <a class="layui-btn layui-btn-sm" href="{{ route('admin.plan.create') }}">添 加</a>
                 @endcan
+                    <a class="layui-btn layui-btn-sm" href="{{ route('admin.index') }}">回到仪表盘</a>
                 {{--<button class="layui-btn layui-btn-sm" id="searchBtn">搜 索</button>--}}
             </div>
             {{--<div class="layui-form" >--}}
@@ -89,20 +90,20 @@
                         // {field: 'id', title: '组ID', sort: true,width:80}
                         // {field: 'show', title: '销售状态'}
                         // { field: 'show', title: '销售状态', templet: '#show', style: "text-align:left", align: "center" ,sort: true, totalRow: true }
-                        { field: 'show', title: '销售状态', templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
-                        ,{ field: 'renew', title: '续费', templet: '#renew', style: "text-align:left", align: "center" , totalRow: true }
+                        { field: 'show', title: '销售状态',width:'10%', templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
+                        ,{ field: 'renew', title: '续费', width:'10%',templet: '#renew', style: "text-align:left", align: "center" , totalRow: true }
                         // ,{field: 'renew', title: '续费'}
-                        ,{field: 'name', title: '名称'}
-                        ,{field: 'transfer_enable', title: '流量'}
-                        ,{field: 'month_price', title: '月付'}
-                        ,{field: 'quarter_price', title: '季付'}
-                        ,{field: 'half_year_price', title: '半年付'}
-                        ,{field: 'year_price', title: '年付'}
-                        ,{field: 'two_year_price', title: '两年付'}
-                        ,{field: 'three_year_price', title: '三年付'}
-                        ,{field: 'onetime_price', title: '一次性'}
-                        ,{field: 'reset_price', title: '重置包'}
-                        ,{field: 'group_id', title: '权限组',toolbar:'#group_id'}
+                        ,{field: 'name', title: '名称', width:'10%'}
+                        ,{field: 'transfer_enable', title: '流量', width:'10%'}
+                        ,{field: 'month_price', title: '月付', width:'10%'}
+                        ,{field: 'quarter_price', title: '季付', width:'10%'}
+                        ,{field: 'half_year_price', title: '半年付', width:'10%'}
+                        ,{field: 'year_price', title: '年付', width:'10%'}
+                        ,{field: 'two_year_price', title: '两年付', width:'10%'}
+                        ,{field: 'three_year_price', title: '三年付', width:'10%'}
+                        ,{field: 'onetime_price', title: '一次性', width:'10%'}
+                        ,{field: 'reset_price', title: '重置包', width:'10%'}
+                        ,{field: 'group_id', title: '权限组',toolbar:'#group_id', width:'10%'}
                         ,{fixed: 'right',align:'center', toolbar: '#options'}
                     ]]
                 });

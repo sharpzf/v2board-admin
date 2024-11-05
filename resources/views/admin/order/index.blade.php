@@ -42,6 +42,7 @@
                     @can('v2board.user')
                         <a class="layui-btn layui-btn-sm" href="{{ route('admin.v2user') }}">回到用户列表</a>
                     @endcan
+                    <a class="layui-btn layui-btn-sm" href="{{ route('admin.index') }}">回到仪表盘</a>
 
             </div>
 

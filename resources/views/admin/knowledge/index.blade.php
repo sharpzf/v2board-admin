@@ -45,8 +45,8 @@
                     ,url: "{{ route('admin.knowledge.data') }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        {field: 'id', title: '文章ID'}
-                        ,{ field: 'show', title: '显示', templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
+                        {field: 'id', width:'8%',title: '文章ID'}
+                        ,{ field: 'show', width:'10%',title: '显示', templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
                         ,{field: 'title', title: '标题'}
                         ,{field: 'category', title: '分类'}
                         ,{field: 'updated_at', title: '更新时间'}

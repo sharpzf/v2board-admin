@@ -97,6 +97,8 @@
                 <li>邮件</li>
                 <li>Telegram</li>
                 <li>APP</li>
+                <li style="float: right;margin-top: 5px;margin-right: 30px">
+                    <a href="{{ route('admin.index') }}" class="layui-btn layui-btn-sm">回到仪表盘</a></li>
 
             </ul>
 

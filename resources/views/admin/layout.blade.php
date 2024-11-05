@@ -181,6 +181,7 @@
     }).extend({
         index: 'lib/index' //主入口模块
     }).use('index');
+
 </script>
 </body>
 </html>
