@@ -230,17 +230,17 @@
                     ,page: true //开启分页
                     ,cols: [[ //表头
                         // {checkbox: true,fixed: true}
-                        ,{field: 'id', title: 'ID',sort: true}
-                        ,{field: 'email', width:'15%',title: '邮箱'}
-                        ,{field: 'banned_val',width:'8%', title: '状态',sort: true}
-                        ,{field: 'plan_name', width:'10%',title: '订阅',sort: true}
-                        ,{field: 'group_name', width:'10%',title: '权限组',sort: true}
-                        ,{field: 'total_used', width:'10%',title: '已用(G)',sort: true}
-                        ,{field: 'transfer_enable',width:'10%', title: '流量(G)',sort: true}
-                        ,{field: 'expired_at_val', width:'18%',title: '到期时间',sort: true}
-                        ,{field: 'balance_val',width:'10%', title: '余额',sort: true}
-                        ,{field: 'commission_balance_val',width:'10%', title: '佣金',sort: true}
-                        ,{field: 'created_at_val',width:'18%', title: '加入时间',sort: true}
+                        ,{field: 'id', title: 'ID',width:'10%'}
+                        ,{field: 'email', width:'18%',title: '邮箱'}
+                        ,{field: 'banned_val',width:'8%', title: '状态'}
+                        ,{field: 'plan_name', width:'7%',title: '订阅'}
+                        ,{field: 'group_name', width:'7%',title: '权限组'}
+                        ,{field: 'total_used', width:'7%',title: '已用(G)'}
+                        ,{field: 'transfer_enable',width:'10%', title: '流量(G)'}
+                        ,{field: 'expired_at_val', width:'17%',title: '到期时间'}
+                        ,{field: 'balance_val',width:'10%', title: '余额'}
+                        ,{field: 'commission_balance_val',width:'10%', title: '佣金'}
+                        ,{field: 'created_at_val',width:'17%', title: '加入时间'}
                         ,{fixed: 'right',width:'60%',title: '操作',align:'center', toolbar: '#options'}
                     ]]
                 });

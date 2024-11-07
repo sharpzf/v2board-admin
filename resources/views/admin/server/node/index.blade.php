@@ -107,9 +107,10 @@
                     ,totalRow: true
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        {field: 'id_show', title: 'ID',width:'5%'}
-                        ,{ field: 'show', title: '显隐', templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
-                        ,{field: 'name', title: '节点',templet:function(d){
+                        {field: 'id_show', title: 'ID',width:'10%'}
+                        ,{ field: 'show', title: '显隐',width:'10%',templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
+                        ,{field: 'node_name', title: '节点类型',width:'12%'}
+                        ,{field: 'name',width:'15%',title: '节点',templet:function(d){
                             if(d.available_status==0){
                                 return '<span class="layui-badge-dot layui-bg-red"></span> '+d.name;
                             }else if(d.available_status==1){
@@ -120,7 +121,7 @@
 
                             }}
                         ,{field: 'address', title: '地址',width:'20%'}
-                        ,{field: 'online', title: '人数'}
+                        ,{field: 'online', title: '人数',width:'10%'}
                         ,{field: 'rate', title: '倍率'}
                         ,{field: 'group_name', title: '权限组',width:'20%'}
                         ,{fixed: 'right',align:'center',width:'20%', toolbar: '#options'}

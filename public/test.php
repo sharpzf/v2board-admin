@@ -1,46 +1,10 @@
 <?php
 
+$user_buy_number_from_suit=1;
+$num=0;
+$all_number = bcadd($user_buy_number_from_suit, $num);
+echo $all_number;exit;
 
-
-
-
-
-
-function vpost($url, $data = null)
-{
-//        global $http;
-    $http=self::$http;
-    $request_header=isset($_REQUEST['header'])?$_REQUEST['header']:'';
-//        $token = json_decode($_REQUEST['header'],true)['Authorization']??'';
-    $token = json_decode($request_header,true)['Authorization']??'';
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-    if (!empty($data)) {
-        curl_setopt($curl, CURLOPT_POST, TRUE);
-        curl_setopt($curl, CURLOPT_POSTFIELDS,$data);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Authorization:'.$token
-        ));
-    }
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-    $output = curl_exec($curl);
-    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    header($http[$httpCode]);
-    curl_close($curl);
-    return $output;
-}
-
-$method='post';
-$options_json=[];
-$function = 'v'.$method;
-$url='https://v3-admin.yihrt.one/api/v1/passport/auth/login';
-$json = $function($url,$options_json);
-var_dump($json);
-
-exit;
 
 $arr1=['a'=>111,'b'=>222,'c'=>333];
 $arr2=['a'=>1,'b'=>2,'d'=>33];

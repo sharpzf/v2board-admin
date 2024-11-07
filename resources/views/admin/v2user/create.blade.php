@@ -39,8 +39,10 @@
                         <label class="layui-form-label">到期时间</label>
                         <div class="layui-input-inline">
                             {{--<input type="text" name="started_at" value="{{isset($coupon)?$coupon['started_at']:''}}" class="layui-input" lay-verify="required" autocomplete="off" id="ID-laydate-start-date-1" placeholder="开始时间">--}}
-                            <input type="text" name="expired_at" id="test1" placeholder="留空则密码与邮箱相同" autocomplete="off" class="layui-input" >
+                            <input type="text" name="expired_at" id="test1" placeholder="" autocomplete="off" class="layui-input" >
                         </div>
+
+                        <div class="layui-form-mid layui-word-aux">请选择用户到期日期，为空则不限制到期时间</div>
                     </div>
 
                 </div>

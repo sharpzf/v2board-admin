@@ -109,6 +109,7 @@ class NodeController extends Controller
             $v['id_show']=$v['parent_id']>0?$v[$type_name]['id'].' => '.$v[$type_name]['parent_id']:$v[$type_name]['id'];
             $v['address']=$v['host'].':'.$v['port'];
             $v['rate']=$v['rate'].' x';
+            $v['node_name']=$type_name;
             $serverType=strtoupper($type_name);
 
 //            $v['online']=Cache::get(CacheKey::get("SERVER_{$serverType}_ONLINE_USER", $v['parent_id'] ?? $v['id']));

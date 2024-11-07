@@ -1107,6 +1107,16 @@
                                 {{--<div class="layui-form-mid layui-word-aux">开启后bot将会对绑定了telegram的管理员和用户进行基础通知。</div>--}}
                             </div>
 
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Windows端强制更新描述</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="windows_force_desc" value="{{ $config['sys_app']['windows_force_desc']??'' }}" placeholder="请输入Windows端强制更新配置描述" class="layui-input" >
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端下载地址2</div>--}}
+                            </div>
+
+
+
 
                             <div class="layui-form-item">
                                 <label for="" class="layui-form-label">macOS版本号</label>
@@ -1189,6 +1199,14 @@
                                     {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
                                 </div>
                                 {{--<div class="layui-form-mid layui-word-aux">开启后bot将会对绑定了telegram的管理员和用户进行基础通知。</div>--}}
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">macOS端强制更新描述</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="macos_force_desc" value="{{ $config['sys_app']['macos_force_desc']??'' }}" placeholder="请输入macOS端强制更新配置描述" class="layui-input" >
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端下载地址2</div>--}}
                             </div>
 
 
@@ -1276,6 +1294,15 @@
                             </div>
 
 
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Android端强制更新描述</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="android_force_desc" value="{{ $config['sys_app']['android_force_desc']??'' }}" placeholder="请输入Android端强制更新配置描述" class="layui-input" >
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端下载地址2</div>--}}
+                            </div>
+
+
 
 
                             <div class="layui-form-item">
@@ -1360,6 +1387,15 @@
                                     {{--<input type="text" name="app_url" value="{{ $config['app_url']??'' }}" placeholder="当前网站最新网址，将会在邮件等需要用于网址处体现" class="layui-input" >--}}
                                 </div>
                                 {{--<div class="layui-form-mid layui-word-aux">开启后bot将会对绑定了telegram的管理员和用户进行基础通知。</div>--}}
+                            </div>
+
+
+                            <div class="layui-form-item">
+                                <label for="" class="layui-form-label">Ios端强制更新描述</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ios_force_desc" value="{{ $config['sys_app']['ios_force_desc']??'' }}" placeholder="请输入Ios端强制更新配置描述" class="layui-input" >
+                                </div>
+                                {{--<div class="layui-form-mid layui-word-aux">Windows端下载地址2</div>--}}
                             </div>
 
 

@@ -77,6 +77,10 @@ class CommController extends Controller
             'is_android_force' => config('v2board.is_android_force', 0),
             'is_macos_force' => config('v2board.is_macos_force', 0),
             'is_windows_force' => config('v2board.is_windows_force', 0),
+            'windows_force_desc' => config('v2board.windows_force_desc', 0),
+            'macos_force_desc' => config('v2board.macos_force_desc', 0),
+            'android_force_desc' => config('v2board.android_force_desc', 0),
+            'ios_force_desc' => config('v2board.ios_force_desc', 0),
         ]
     ]);
 }

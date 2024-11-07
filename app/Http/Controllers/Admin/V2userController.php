@@ -212,7 +212,7 @@ class V2userController extends Controller
         $params['is_admin']=isset($params['is_admin'])?1:0;
         $params['is_staff']=isset($params['is_staff'])?1:0;
 
-        $params['expired_at']=$params['is_staff']?strtotime($params['expired_at']):null;
+        $params['expired_at']=$params['expired_at']?strtotime($params['expired_at']):null;
         $params['balance']=$params['balance']?$params['balance']*100:$params['balance'];
         $params['commission_balance']=$params['commission_balance']?$params['commission_balance']*100:$params['commission_balance'];
         $params['d']=$params['d']?$params['d']*1073741824:$params['d'];
@@ -244,7 +244,11 @@ class V2userController extends Controller
         if (!$user) return response()->json(['code'=>1,'msg'=>'更新失败']);
         $user->token = Helper::guid();
         $user->uuid = Helper::guid(true);
-        return response()->json(['code'=>0,'msg'=>'更新成功']);
+        if($user->save()){
+            return response()->json(['code'=>0,'msg'=>'更新成功']);
+        }
+        return response()->json(['code'=>1,'msg'=>'更新失败']);
+
 //        return redirect(route('admin.v2user'))->with(['status'=>'更新成功']);
 //        return response([
 //            'data' => $user->save()
