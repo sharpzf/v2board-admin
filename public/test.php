@@ -1,5 +1,10 @@
 <?php
 
+
+
+//$a=stream_socket_client("ssl://smtp.exmail.qq.com:465", $errno, $errstr, 120, STREAM_CLIENT_CONNECT);
+$a=stream_socket_client("ssl://smtpdm-ap-southeast-1.aliyun.com:465", $errno, $errstr, 120, STREAM_CLIENT_CONNECT);
+
 $user_buy_number_from_suit=1;
 $num=0;
 $all_number = bcadd($user_buy_number_from_suit, $num);

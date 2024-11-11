@@ -343,7 +343,7 @@ class Loader
         }
 
         if (function_exists('putenv')) {
-            putenv("$name=$value");
+            @putenv("$name=$value");
         }
 
         $_ENV[$name] = $value;

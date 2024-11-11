@@ -25,8 +25,10 @@ class V2userController extends Controller
     {
         $plan = Plan::pluck('name','id')->toArray();
         $invite_user_id=$request->input('invite_user_id',0);
+        $user_id_st=$request->input('user_id_st','');
+        $user_id_end=$request->input('user_id_end','');
 
-        return view('admin.v2user.index',compact('plan','invite_user_id'));
+        return view('admin.v2user.index',compact('plan','invite_user_id','user_id_st','user_id_end'));
     }
 
     public function data(Request $request)
@@ -305,10 +307,26 @@ class V2userController extends Controller
                 $builder->whereBetween('expired_at', [$expired_at_start, $expired_at_end]);
             }
             if($expired_at_start && !$expired_at_end){
-                $builder->whereBetween('expired_at', '>=',$expired_at_start);
+                $builder->where('expired_at', '>=',$expired_at_start);
             }
             if(!$expired_at_start && $expired_at_end){
-                $builder->whereBetween('expired_at', '<=',$expired_at_end);
+                $builder->where('expired_at', '<=',$expired_at_end);
+            }
+
+        }
+
+
+        $user_id_st=$request->input('user_id_st');
+        $user_id_end=$request->input('user_id_end');
+        if($user_id_st || $user_id_end){
+            if($user_id_st && $user_id_end){
+                $builder->whereBetween('id', [$user_id_st, $user_id_end]);
+            }
+            if($user_id_st && !$user_id_end){
+                $builder->where('id', '>=',$user_id_st);
+            }
+            if(!$user_id_st && $user_id_end){
+                $builder->where('id', '<=',$user_id_end);
             }
 
         }

@@ -102,7 +102,7 @@
                     <select name="field_name" id="field_name" lay-filter="field_name">
                         <option value="-1" >请选择</option>
                         <option value="email" >邮箱</option>
-                        <option value="id" >用户ID</option>
+                        {{--<option value="id" >用户ID</option>--}}
                         {{--<option value="commission_status" >订阅</option>--}}
                         <option value="transfer_enable" >流量</option>
                         <option value="d" >下行</option>
@@ -117,6 +117,13 @@
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" name="field_val" id="field_val" value="{{$invite_user_id?$invite_user_id:''}}" placeholder="请输入搜索内容" class="layui-input" >
+                </div>
+
+                <div class="layui-input-inline">
+                    <input type="number" name="user_id_st" id="user_id_st" value="{{$user_id_st?$user_id_st:''}}" placeholder="请输入开始的用户id" class="layui-input" >
+                </div>
+                <div class="layui-input-inline">
+                    <input type="number" name="user_id_end" id="user_id_end" value="{{$user_id_end?$user_id_end:''}}" placeholder="请输入结束的用户id" class="layui-input" >
                 </div>
 
                 <button class="layui-btn" id="searchBtn">搜 索</button>
@@ -340,6 +347,11 @@
                     var is_admin = $("#is_admin option:selected").val();
                     var plan_id = $("#plan_id option:selected").val();
                     var banned = $("#banned option:selected").val();
+                    var user_id_st = $.trim($("#user_id_st").val());
+                    var user_id_end = $.trim($("#user_id_end").val());
+
+
+
                     var expired_at_start = $("#ID-laydate-start-date-1").val();
                     var expired_at_end = $("#ID-laydate-end-date-1").val();
                     if(field_name!='-1' && !field_val){
@@ -347,9 +359,31 @@
                         return false;
                     }
 
+
+                    var user_id_st1 = parseInt($.trim($("#user_id_st").val()));
+                    var user_id_end1 = parseInt($.trim($("#user_id_end").val()));
+
+                    if(user_id_st &&user_id_st1<=0){
+                        layer.msg('用户开始id需大于0');
+                        return false;
+                    }
+                    if(user_id_end &&user_id_end1<=0){
+                        layer.msg('用户结束id需大于0');
+                        return false;
+                    }
+
+                    if(user_id_st && user_id_end && (user_id_st1>user_id_end1)){
+                        layer.msg('用户结束id需大于开始id');
+                        return false;
+                    }
+
+
+
+
                     dataTable.reload({
                         where:{'field_name':field_name,'field_val':field_val,'is_admin':is_admin,'plan_id':plan_id,
-                            'banned':banned,'expired_at_start':expired_at_start,'expired_at_end':expired_at_end
+                            'banned':banned,'expired_at_start':expired_at_start,'expired_at_end':expired_at_end,
+                            'user_id_st':user_id_st,'user_id_end':user_id_end
                         },
                         page:{curr:1}
                     })
