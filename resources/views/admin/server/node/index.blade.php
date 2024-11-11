@@ -107,7 +107,7 @@
                     ,totalRow: true
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        {field: 'id_show', title: 'ID',width:'10%'}
+                        {field: 'id_show', title: 'ID',width:'13%'}
                         ,{ field: 'show', title: '显隐',width:'10%',templet: '#show', style: "text-align:left", align: "center" , totalRow: true }
                         ,{field: 'node_name', title: '节点类型',width:'12%'}
                         ,{field: 'name',width:'15%',title: '节点',templet:function(d){
@@ -120,7 +120,7 @@
                             }
 
                             }}
-                        ,{field: 'address', title: '地址',width:'20%'}
+                        ,{field: 'address', title: '地址',width:'25%'}
                         ,{field: 'online', title: '人数',width:'10%'}
                         ,{field: 'rate', title: '倍率'}
                         ,{field: 'group_name', title: '权限组',width:'20%'}
