@@ -169,6 +169,22 @@ class Clash
         $array['port'] = $server['port'];
         $array['password'] = $password;
         $array['udp'] = true;
+        if(isset($server['network']) && in_array($server['network'], ["grpc", "ws"])){
+            $array['network'] = $server['network'];
+            // grpc配置
+            if($server['network'] === "grpc" && isset($server['network_settings']['serviceName'])) {
+                $array['grpc-opts']['grpc-service-name'] = $server['network_settings']['serviceName'];
+            }
+            // ws配置
+            if($server['network'] === "ws") {
+                if(isset($server['network_settings']['path'])) {
+                    $array['ws-opts']['path'] = $server['network_settings']['path'];
+                }
+                if(isset($server['network_settings']['headers']['Host'])){
+                    $array['ws-opts']['headers']['Host'] = $server['network_settings']['headers']['Host'];
+                }
+            }
+        };
         if (!empty($server['server_name'])) $array['sni'] = $server['server_name'];
         if (!empty($server['allow_insecure'])) $array['skip-cert-verify'] = ($server['allow_insecure'] ? true : false);
         return $array;
