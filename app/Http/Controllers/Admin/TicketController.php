@@ -86,6 +86,13 @@ class TicketController extends Controller
         }
 
         $tickets=$model->paginate($request->get('limit',30))->toArray();
+
+        $user_ids=array_column($tickets['data'],'user_id');
+        if(!empty($user_ids)){
+            $user_arr=User::whereIn('id', $user_ids)->select(['email','id'])->get()->toArray();
+            $user_arr=array_column($user_arr,'email','id');
+        }
+
         $level_arr=['低','中','高'];
         foreach($tickets['data'] as &$val){
             $val['updated_at']=date('Y-m-d H:i:s',$val['updated_at']);
@@ -93,6 +100,7 @@ class TicketController extends Controller
             $val['level']=$level_arr[$val['level']];
 //            $val['status']=$val['status']==1?'已关闭':'已开启';
             $val['status_str']=$val['status']==1?'已关闭':'已开启';
+            $val['email']=$user_arr[$val['user_id']];
         }
         $data = [
             'code' => 0,

@@ -144,7 +144,7 @@ class V2userController extends Controller
         $plan = Plan::pluck('name','id')->toArray();
 
         if ($user['invite_user_id']) {
-            $invite_user_id = User::find($user['invite_user_id'])->select(['email'])->toArray();
+            $invite_user_id = User::find($user['invite_user_id'])->toArray();
             $user['invite_user_id'] = $invite_user_id['email'];
         }
         $user['balance']=sprintf("%.2f", $user['balance']/100);

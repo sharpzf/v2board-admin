@@ -76,7 +76,8 @@
                     ,url: "{{ route('admin.ticket.data') }}" //数据接口
                     ,page: true //开启分页
                     ,cols: [[ //表头
-                        {field: 'id', title: '#'}
+                        // {field: 'id', title: '#'}
+                        {field: 'email', title: '用户邮箱'}
                         ,{field: 'subject', title: '主题'}
                         ,{field: 'level', title: '工单级别'}
                         ,{field: 'status_str', title: '工单状态'}
