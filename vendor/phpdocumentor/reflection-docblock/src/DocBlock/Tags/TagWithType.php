@@ -13,11 +13,9 @@ declare(strict_types=1);
 
 namespace phpDocumentor\Reflection\DocBlock\Tags;
 
-use InvalidArgumentException;
 use phpDocumentor\Reflection\Type;
 
 use function in_array;
-use function sprintf;
 use function strlen;
 use function substr;
 use function trim;
@@ -25,7 +23,7 @@ use function trim;
 abstract class TagWithType extends BaseTag
 {
     /** @var ?Type */
-    protected ?Type $type = null;
+    protected $type;
 
     /**
      * Returns the type section of the variable.
@@ -59,12 +57,6 @@ abstract class TagWithType extends BaseTag
                 $nestingLevel--;
                 continue;
             }
-        }
-
-        if ($nestingLevel < 0 || $nestingLevel > 0) {
-            throw new InvalidArgumentException(
-                sprintf('Could not find type in %s, please check for malformed notations', $body)
-            );
         }
 
         $description = trim(substr($body, strlen($type)));

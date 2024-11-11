@@ -9,7 +9,7 @@ use const FILEINFO_MIME_TYPE;
 use const PATHINFO_EXTENSION;
 use finfo;
 
-class FinfoMimeTypeDetector implements MimeTypeDetector, ExtensionLookup
+class FinfoMimeTypeDetector implements MimeTypeDetector
 {
     private const INCONCLUSIVE_MIME_TYPES = [
         'application/x-empty',
@@ -41,7 +41,7 @@ class FinfoMimeTypeDetector implements MimeTypeDetector, ExtensionLookup
 
     public function __construct(
         string $magicFile = '',
-        ?ExtensionToMimeTypeMap $extensionMap = null,
+        ExtensionToMimeTypeMap $extensionMap = null,
         ?int $bufferSampleSize = null,
         array $inconclusiveMimetypes = self::INCONCLUSIVE_MIME_TYPES
     ) {
@@ -88,19 +88,5 @@ class FinfoMimeTypeDetector implements MimeTypeDetector, ExtensionLookup
         }
 
         return (string) substr($contents, 0, $this->bufferSampleSize);
-    }
-
-    public function lookupExtension(string $mimetype): ?string
-    {
-        return $this->extensionMap instanceof ExtensionLookup
-            ? $this->extensionMap->lookupExtension($mimetype)
-            : null;
-    }
-
-    public function lookupAllExtensions(string $mimetype): array
-    {
-        return $this->extensionMap instanceof ExtensionLookup
-            ? $this->extensionMap->lookupAllExtensions($mimetype)
-            : [];
     }
 }

@@ -29,20 +29,21 @@ use function wordwrap;
 class Serializer
 {
     /** @var string The string to indent the comment with. */
-    protected string $indentString = ' ';
+    protected $indentString = ' ';
 
     /** @var int The number of times the indent string is repeated. */
-    protected int $indent = 0;
+    protected $indent = 0;
 
     /** @var bool Whether to indent the first line with the given indent amount and string. */
-    protected bool $isFirstLineIndented = true;
+    protected $isFirstLineIndented = true;
 
     /** @var int|null The max length of a line. */
-    protected ?int $lineLength = null;
+    protected $lineLength;
 
     /** @var Formatter A custom tag formatter. */
-    protected Formatter $tagFormatter;
-    private string $lineEnding;
+    protected $tagFormatter;
+    /** @var string */
+    private $lineEnding;
 
     /**
      * Create a Serializer instance.

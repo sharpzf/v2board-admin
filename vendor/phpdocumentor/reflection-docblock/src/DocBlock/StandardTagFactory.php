@@ -17,7 +17,6 @@ use InvalidArgumentException;
 use phpDocumentor\Reflection\DocBlock\Tags\Author;
 use phpDocumentor\Reflection\DocBlock\Tags\Covers;
 use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
-use phpDocumentor\Reflection\DocBlock\Tags\Factory\Factory;
 use phpDocumentor\Reflection\DocBlock\Tags\Generic;
 use phpDocumentor\Reflection\DocBlock\Tags\InvalidTag;
 use phpDocumentor\Reflection\DocBlock\Tags\Link as LinkTag;
@@ -41,15 +40,12 @@ use ReflectionNamedType;
 use ReflectionParameter;
 use Webmozart\Assert\Assert;
 
-use function array_key_exists;
 use function array_merge;
 use function array_slice;
 use function call_user_func_array;
 use function count;
 use function get_class;
-use function is_object;
 use function preg_match;
-use function sprintf;
 use function strpos;
 use function trim;
 
@@ -76,10 +72,10 @@ final class StandardTagFactory implements TagFactory
     public const REGEX_TAGNAME = '[\w\-\_\\\\:]+';
 
     /**
-     * @var array<class-string<Tag>|Factory> An array with a tag as a key, and an
+     * @var array<class-string<Tag>> An array with a tag as a key, and an
      *                               FQCN to a class that handles it as an array value.
      */
-    private array $tagHandlerMappings = [
+    private $tagHandlerMappings = [
         'author' => Author::class,
         'covers' => Covers::class,
         'deprecated' => Deprecated::class,
@@ -105,21 +101,22 @@ final class StandardTagFactory implements TagFactory
      * @var array<class-string<Tag>> An array with a anotation s a key, and an
      *      FQCN to a class that handles it as an array value.
      */
-    private array $annotationMappings = [];
+    private $annotationMappings = [];
 
     /**
      * @var ReflectionParameter[][] a lazy-loading cache containing parameters
      *      for each tagHandler that has been used.
      */
-    private array $tagHandlerParameterCache = [];
+    private $tagHandlerParameterCache = [];
 
-    private FqsenResolver $fqsenResolver;
+    /** @var FqsenResolver */
+    private $fqsenResolver;
 
     /**
      * @var mixed[] an array representing a simple Service Locator where we can store parameters and
      *     services that can be inserted into the Factory Methods of Tag Handlers.
      */
-    private array $serviceLocator = [];
+    private $serviceLocator = [];
 
     /**
      * Initialize this tag factory with the means to resolve an FQSEN and optionally a list of tag handlers.
@@ -165,25 +162,18 @@ final class StandardTagFactory implements TagFactory
         $this->serviceLocator[$alias ?: get_class($service)] = $service;
     }
 
-    /** {@inheritDoc} */
-    public function registerTagHandler(string $tagName, $handler): void
+    public function registerTagHandler(string $tagName, string $handler): void
     {
         Assert::stringNotEmpty($tagName);
+        Assert::classExists($handler);
+        Assert::implementsInterface($handler, Tag::class);
+
         if (strpos($tagName, '\\') && $tagName[0] !== '\\') {
             throw new InvalidArgumentException(
                 'A namespaced tag must have a leading backslash as it must be fully qualified'
             );
         }
 
-        if (is_object($handler)) {
-            Assert::isInstanceOf($handler, Factory::class);
-            $this->tagHandlerMappings[$tagName] = $handler;
-
-            return;
-        }
-
-        Assert::classExists($handler);
-        Assert::implementsInterface($handler, Tag::class);
         $this->tagHandlerMappings[$tagName] = $handler;
     }
 
@@ -220,10 +210,6 @@ final class StandardTagFactory implements TagFactory
             $this->getServiceLocatorWithDynamicParameters($context, $name, $body)
         );
 
-        if (array_key_exists('tagLine', $arguments)) {
-            $arguments['tagLine'] = sprintf('@%s %s', $name, $body);
-        }
-
         try {
             $callable = [$handlerClassName, 'create'];
             Assert::isCallable($callable);
@@ -239,9 +225,9 @@ final class StandardTagFactory implements TagFactory
     /**
      * Determines the Fully Qualified Class Name of the Factory or Tag (containing a Factory Method `create`).
      *
-     * @return class-string<Tag>|Factory
+     * @return class-string<Tag>
      */
-    private function findHandlerClassName(string $tagName, TypeContext $context)
+    private function findHandlerClassName(string $tagName, TypeContext $context): string
     {
         $handlerClassName = Generic::class;
         if (isset($this->tagHandlerMappings[$tagName])) {
@@ -282,18 +268,18 @@ final class StandardTagFactory implements TagFactory
                 }
             }
 
-            $parameterName = $parameter->getName();
             if (isset($locator[$typeHint])) {
-                $arguments[$parameterName] = $locator[$typeHint];
+                $arguments[] = $locator[$typeHint];
                 continue;
             }
 
+            $parameterName = $parameter->getName();
             if (isset($locator[$parameterName])) {
-                $arguments[$parameterName] = $locator[$parameterName];
+                $arguments[] = $locator[$parameterName];
                 continue;
             }
 
-            $arguments[$parameterName] = null;
+            $arguments[] = null;
         }
 
         return $arguments;
@@ -303,14 +289,12 @@ final class StandardTagFactory implements TagFactory
      * Retrieves a series of ReflectionParameter objects for the static 'create' method of the given
      * tag handler class name.
      *
-     * @param class-string|Factory $handler
+     * @param class-string $handlerClassName
      *
      * @return ReflectionParameter[]
      */
-    private function fetchParametersForHandlerFactoryMethod($handler): array
+    private function fetchParametersForHandlerFactoryMethod(string $handlerClassName): array
     {
-        $handlerClassName = is_object($handler) ? get_class($handler) : $handler;
-
         if (!isset($this->tagHandlerParameterCache[$handlerClassName])) {
             $methodReflection                                  = new ReflectionMethod($handlerClassName, 'create');
             $this->tagHandlerParameterCache[$handlerClassName] = $methodReflection->getParameters();

@@ -22,24 +22,15 @@ class ArrayShapeNode implements TypeNode
 	/** @var self::KIND_* */
 	public $kind;
 
-	/** @var ArrayShapeUnsealedTypeNode|null */
-	public $unsealedType;
-
 	/**
 	 * @param ArrayShapeItemNode[] $items
 	 * @param self::KIND_* $kind
 	 */
-	public function __construct(
-		array $items,
-		bool $sealed = true,
-		string $kind = self::KIND_ARRAY,
-		?ArrayShapeUnsealedTypeNode $unsealedType = null
-	)
+	public function __construct(array $items, bool $sealed = true, string $kind = self::KIND_ARRAY)
 	{
 		$this->items = $items;
 		$this->sealed = $sealed;
 		$this->kind = $kind;
-		$this->unsealedType = $unsealedType;
 	}
 
 
@@ -48,7 +39,7 @@ class ArrayShapeNode implements TypeNode
 		$items = $this->items;
 
 		if (! $this->sealed) {
-			$items[] = '...' . $this->unsealedType;
+			$items[] = '...';
 		}
 
 		return $this->kind . '{' . implode(', ', $items) . '}';
