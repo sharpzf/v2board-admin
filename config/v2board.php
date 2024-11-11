@@ -1,6 +1,6 @@
 <?php
  return array (
-  'app_name' => 'zz_vpn111',
+  'app_name' => 'zz_vpn',
   'app_description' => 'zz_vpn2',
   'app_url' => 'http://www.laravel-layui3.com',
   'force_https' => 0,
@@ -8,7 +8,7 @@
   'subscribe_url' => 'aa11,bb22,c55',
   'tos_url' => 'https://66',
   'stop_register' => 1,
-  'try_out_plan_id' => '8',
+  'try_out_plan_id' => '0',
   'try_out_hour' => '77',
   'currency' => 'CNY',
   'currency_symbol' => '¥',

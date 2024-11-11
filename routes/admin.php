@@ -156,7 +156,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         Route::get('config', 'ConfigController@index')->name('admin.config');
         Route::get('config/send', 'ConfigController@send')->name('admin.config.send')->middleware('permission:config.config.send');
         Route::get('config/telegram', 'ConfigController@telegram')->name('admin.config.telegram')->middleware('permission:config.config.telegram');
-        Route::put('config', 'ConfigController@update')->name('admin.config.update')->middleware('permission:config.config.update');
+        Route::put('config/update', 'ConfigController@update')->name('admin.config.update')->middleware('permission:config.config.update');
     });
     //支付配置
     Route::group(['middleware' => 'permission:config.payment'], function () {
@@ -174,10 +174,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
 
     //主题配置
-    Route::group(['middleware' => 'permission:config.theme'], function () {
-        Route::get('theme', 'ConfigController@theme')->name('admin.theme');
-        Route::put('theme', 'ConfigController@update')->name('admin.theme.update')->middleware('permission:config.theme.update');
-    });
+//    Route::group(['middleware' => 'permission:config.theme'], function () {
+//        Route::get('theme', 'ConfigController@theme')->name('admin.theme');
+//        Route::put('theme', 'ConfigController@update')->name('admin.theme.update')->middleware('permission:config.theme.update');
+//    });
 
 
 

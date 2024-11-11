@@ -69,7 +69,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function save(OrderSave $request)
+    public function save(Request $request)
     {
         $userService = new UserService();
         if ($userService->isNotCompleteOrderByUserId($request->user['id'])) {

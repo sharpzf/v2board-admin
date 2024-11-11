@@ -26,7 +26,7 @@ class ConfigController extends Controller
     public function index()
     {
 //        $config = Site::pluck('value','key');
-
+        Artisan::call('config:clear');
         $plans = Plan::pluck('name', 'id');
 
         $config_rows = Config::select(['name', 'val'])
@@ -296,9 +296,10 @@ class ConfigController extends Controller
                 return back()->withErrors(['status' => '缓存清除失败，请卸载或检查opcache配置状态']);
             }
         }
-        Artisan::call('config:cache');
-//        return redirect(route('admin.config'))->with(['status'=>'更新成功']);
-        return back()->with(['status' => '更新成功']);
+
+//        Artisan::call('config:cache');
+
+        return redirect()->back()->with('status', '更新成功');
 
     }
 
