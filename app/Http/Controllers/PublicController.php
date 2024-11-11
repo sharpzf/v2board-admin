@@ -59,11 +59,10 @@ class PublicController extends Controller
     public function adminApi(){
 //echo '<pre>';
 //print_r($_REQUEST);exit;
-        // $forward_url=Cache::get('forward_url', '');
-        $forward_url=config('v2board.forward_url','');
-        // $api_key=Cache::get('api_key', '');
-        $api_key=config('v2board.api_key','');
+        $forward_url=Cache::get('forward_url', '');
+        $api_key=Cache::get('api_key', '');
 //        echo 23333333;exit;
+// echo $forward_url.'=='.$api_key;exit;
         if(!$forward_url || !$api_key){
             $config_info = Config::where('name', 'sys_app')
                 ->select(['name', 'val'])
@@ -72,8 +71,8 @@ class PublicController extends Controller
 
             $forward_url=$temp_arr['forward_url'];
             $api_key=$temp_arr['api_key'];
-            // Cache::forever('forward_url', $forward_url);
-            // Cache::forever('api_key', $api_key);
+            Cache::forever('forward_url', $forward_url);
+            Cache::forever('api_key', $api_key);
         }
         // $api_name = base64_decode(xor_enc(base64_decode($_REQUEST['api_name'])));
         $api_name = self::xor_enc(base64_decode($_REQUEST['api_name']),$api_key);
@@ -111,7 +110,7 @@ class PublicController extends Controller
 
 //        $url = 'https://v3-admin.yihrt.one/api/v1'.$api_name;
         $url = $forward_url.$api_name;
-//echo $url;exit;
+
         $json = self::$function($url,$options_json);
         //   exit($json);exit;
         // file_put_contents($filename,'ret:'.$json.PHP_EOL.PHP_EOL,FILE_APPEND);
@@ -240,6 +239,7 @@ class PublicController extends Controller
         $request_header=isset($_REQUEST['header'])?$_REQUEST['header']:'';
 //        $token = json_decode($_REQUEST['header'],true)['Authorization']??'';
         $token = json_decode($request_header,true)['Authorization']??'';
+
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
