@@ -63,14 +63,29 @@
                     <div class="layui-input-inline">
                         <input type="text" name="host" lay-verify="required" value="{{ isset($node)?$node['host']:''}}"  placeholder="地址或ip" class="layui-input"  autocomplete="off">
                     </div>
-                    {{--<label for="" class="layui-form-label">TLS</label>--}}
-                    {{--<div class="layui-input-inline">--}}
+                    <label for="" class="layui-form-label">TLS</label>
+                    <div class="layui-input-inline">
                         {{--<input type="number" name="rate" lay-verify="required"  placeholder="请输入节点倍率" autocomplete="off" class="layui-input">--}}
-                        {{--<select name="tls" lay-filter="tls">--}}
-                            {{--<option value="0"  @if(isset($node)&&$node['tls']==0) selected @endif>不支持</option>--}}
-                            {{--<option value="1"  @if(isset($node)&&$node['tls']==1) selected @endif>支持</option>--}}
-                        {{--</select>--}}
-                    {{--</div>--}}
+                        <select name="tls" lay-filter="tls">
+                            <option value="0"  @if(isset($node)&&$node['tls']==0) selected @endif>不支持</option>
+                            <option value="1"  @if(isset($node)&&$node['tls']==1) selected @endif>支持</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label for="" class="layui-form-label" style="margin-left: 0px;width: auto;">Server Name</label>
+                    <div class="layui-input-inline" style="margin-right: 0px">
+                        <input type="text" name="serverName" value="{{ isset($node)?$node['tlsSettings']['serverName']:''}}"  placeholder="不使用请留空" autocomplete="off" class="layui-input">
+                    </div>
+
+                    <label for="" class="layui-form-label">Allow Insecure</label>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" name="allowInsecure" lay-skin="switch"  @if(isset($node['tlsSettings']['allowInsecure'])&&$node['tlsSettings']['allowInsecure']==1) checked @endif >
+                    </div>
+
 
                 </div>
 
@@ -84,28 +99,48 @@
 
                     <label for="" class="layui-form-label">服务端口</label>
                     <div class="layui-input-inline" >
-                        <input type="number" name="server_port" value="{{ isset($node)?$node['server_port']:''}}"  lay-verify="required" placeholder="服务端开放端口" autocomplete="off" class="layui-input">
+                        <input type="number" name="server_port" value="{{ isset($node)?$node['server_port']:''}}"  lay-verify="required" placeholder="非NAT同连接端口" autocomplete="off" class="layui-input">
 
-                    </div>
-
-                    <label for="" class="layui-form-label">允许不安全</label>
-                    <div class="layui-input-inline" >
-                        {{--<input type="number" name="server_port" lay-verify="required" placeholder="非NAT同连接端口" autocomplete="off" class="layui-input">--}}
-                        <select name="insecure" lay-filter="insecure">
-                            <option value="0"  @if(isset($node)&&$node['allow_insecure']==0) selected @endif>否</option>
-                            <option value="1"  @if(isset($node)&&$node['allow_insecure']==1) selected @endif>是</option>
-                        </select>
                     </div>
 
                 </div>
 
 
-                <div class="layui-form-item">
-                    <label for="" class="layui-form-label">服务器名称指示(sni)</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="server_name" value="{{ isset($node)?$node['server_name']:''}}"  placeholder="当节点地址与证书不一致时用于证书验证" class="layui-input"  autocomplete="off">
-                    </div>
 
+                <div class="layui-form-item">
+                    <label for="" class="layui-form-label">传输协议</label>
+                    <div class="layui-input-inline">
+                        <select name="network" class="network" lay-filter="network">
+                            <option value="tcp" @if(isset($node)&&$node['network']=='tcp') selected @endif >TCP</option>
+                            <option value="ws" @if(isset($node)&&$node['network']=='ws') selected @endif>WebSocket</option>
+                            <option value="grpc" @if(isset($node)&&$node['network']=='grpc') selected @endif>gRPC</option>
+                        </select>
+                    </div>
+                    {{--<div class="layui-form-mid layui-word-aux">全局流量重置方式，默认每月1号。可以在订阅管理为订阅单独设置</div>--}}
+                </div>
+
+
+
+
+
+
+                <div class="layui-form-item">
+                    <label for="" class="layui-form-label">编辑协议配置</label>
+                    <div class="layui-input-block">
+
+                        <textarea name="networkSettings"  placeholder='' class="layui-textarea box_textarea box_textarea_tcp">{{ isset($node)?$node['networkSettings']:''}}</textarea>
+                        {{--<textarea name="networkSettings"  placeholder='{--}}
+                        {{--"path": "/",--}}
+                        {{--"headers": {--}}
+                        {{--"Host": "v2ray.com"--}}
+                        {{--}--}}
+                        {{--}' class="layui-textarea box_textarea box_textarea_ws">{{ isset($node)?$node['networkSettings']:''}}</textarea>--}}
+
+
+                        {{--<textarea name="networkSettings"  placeholder='{--}}
+                        {{--"serviceName": "GunService"--}}
+                        {{--}' class="layui-textarea box_textarea box_textarea_grpc">{{ isset($node)?$node['networkSettings']:''}}</textarea>--}}
+                    </div>
                 </div>
 
 

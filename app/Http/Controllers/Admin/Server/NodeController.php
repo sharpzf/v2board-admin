@@ -228,8 +228,13 @@ class NodeController extends Controller
 
 
         }elseif ($params['type']==2){
-            $arr['allow_insecure']=$params['insecure'];
-            $arr['server_name']=$params['server_name']?$params['server_name']:'';
+            $tlsSettings['serverName']=!empty($params['serverName'])?$params['serverName']:null;
+            $tlsSettings['allowInsecure']=isset($params['allowInsecure'])?1:0;
+
+            $arr['tls']=$params['tls'];
+            $arr['network']=$params['network'];
+            $arr['networkSettings']=$params['networkSettings']?json_encode($params['networkSettings']):null;
+            $arr['tlsSettings']=json_encode($tlsSettings);
 
         }elseif ($params['type']==3){
             if (empty($params['up_mbps'])) {
@@ -312,6 +317,8 @@ class NodeController extends Controller
             $parents=array_column($parents,'name','id');
             return view('admin.server.node.edit1',compact('node','groups','routes','parents'));
         }elseif ($node['type']==2){
+            $node['tlsSettings']=!empty($node['tlsSettings'])?json_decode($node['tlsSettings'],true):$node['tlsSettings'];
+            $node['networkSettings']=!empty($node['networkSettings'])?json_decode($node['networkSettings'],true):$node['networkSettings'];
             $parents=ServerTrojan::where('server_id','<>',$node['id'])->select(['name','id'])->get()->toArray();
             $parents=array_column($parents,'name','id');
             return view('admin.server.node.edit2',compact('node','groups','routes','parents'));
