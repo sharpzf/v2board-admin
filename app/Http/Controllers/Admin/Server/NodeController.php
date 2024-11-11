@@ -396,8 +396,13 @@ class NodeController extends Controller
             $arr['tlsSettings']=json_encode($tlsSettings);
 
         }elseif ($params['type']==2){
-            $arr['allow_insecure']=$params['insecure'];
-            $arr['server_name']=$params['server_name']?$params['server_name']:'';
+            $tlsSettings['serverName']=!empty($params['serverName'])?$params['serverName']:null;
+            $tlsSettings['allowInsecure']=isset($params['allowInsecure'])?1:0;
+
+            $arr['tls']=$params['tls'];
+            $arr['network']=$params['network'];
+            $arr['networkSettings']=$params['networkSettings']?json_encode($params['networkSettings']):null;
+            $arr['tlsSettings']=json_encode($tlsSettings);
         }elseif ($params['type']==3){
             if (empty($params['up_mbps'])) {
                 return redirect(route('admin.node.edit',['id'=>$params['id']]))->withErrors(['status'=>'上行带宽不能为空']);
