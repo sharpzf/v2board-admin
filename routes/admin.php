@@ -174,10 +174,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     });
 
     //主题配置
-//    Route::group(['middleware' => 'permission:config.theme'], function () {
-//        Route::get('theme', 'ConfigController@theme')->name('admin.theme');
-//        Route::put('theme', 'ConfigController@update')->name('admin.theme.update')->middleware('permission:config.theme.update');
-//    });
+    Route::group(['middleware' => 'permission:config.theme'], function () {
+        Route::get('theme', 'ConfigController@theme')->name('admin.theme');
+        Route::put('theme', 'ConfigController@update')->name('admin.theme.update')->middleware('permission:config.theme.update');
+    });
 
 
 
