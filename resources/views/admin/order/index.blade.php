@@ -74,10 +74,9 @@
         </div>
         <div class="layui-card-body">
             <table id="dataTable" lay-filter="dataTable"></table>
-            <script type="text/html" id="options">
+            <script type="text/html" id="trade_no">
                 <div class="layui-btn-group">
                     @can('finance.order.detail')
-
                         <a class="layui-btn layui-btn-sm" >详情</a>
                     @endcan
                 </div>
@@ -108,7 +107,7 @@
                         //         return '<a  class="layui-btn layui-btn-xs" href="' + d.trade_no_url + '">' + d.trade_no_val + '</a>';
                         //     }}
                         // {checkbox: true,fixed: true},
-                        {field: 'trade_no',title: '订单号',width:'27%'}
+                        {field: 'trade_no',title: '订单号',width:'27%',toolbar: '#trade_no'}
                         ,{field: 'email',title: '邮箱',width:'17%'}
                         ,{field: 'type_val',title: '类型',width:'5%'}
                         ,{field: 'plan_name', title: '订阅计划',width:'10%'}

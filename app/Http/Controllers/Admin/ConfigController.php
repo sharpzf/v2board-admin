@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Services\TelegramService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Mail;
 
 class ConfigController extends Controller
 {
@@ -322,6 +322,30 @@ class ConfigController extends Controller
      */
     public function send(Request $request)
     {
+//        $email='2423550953@qq.com';
+//        $subject='This is test email';
+//        $params['template_name']='mail.default.notify';
+//        $params['template_value']=[
+//            'name' => config('v2board.app_name', 'V2Board'),
+////                'name' => Cache::get('mail.from.name','V2Board'),
+////                'content' => 'This is v2board test email',
+//            'content' => 'This is test email',
+//            'url' => config('v2board.app_url')
+////                'url' => Cache::get('mail.from.url','/')
+//        ];
+//        try {
+//            Mail::send(
+//                $params['template_name'],
+//                $params['template_value'],
+//                function ($message) use ($email, $subject) {
+//                    $message->to($email)->subject($subject);
+//                }
+//            );
+//        } catch (\Exception $e) {
+//            $error = $e->getMessage();
+//        }
+//        var_dump($error);exit;
+
         $obj = new SendEmailJob([
 //            'email' => $request->user['email'],
 //            'email' => '2423550953@qq.com',

@@ -31,28 +31,13 @@
         </div>
         <div class="layui-card-body">
             <table id="dataTable" lay-filter="dataTable"></table>
-            {{--<script type="text/html" id="options">--}}
-                {{--<div class="layui-btn-group">--}}
-                    {{--@can('v2board.ticket.detail')--}}
-                        {{--<a class="layui-btn layui-btn-sm" lay-event="detail">查看</a>--}}
-                    {{--@endcan--}}
-                    {{--@can('v2board.ticket.close')--}}
-
-
-                            {{--@if()--}}
-                                {{--<a class="layui-btn layui-btn-sm" lay-event="close">关闭0</a>--}}
-                            {{--@endif--}}
-                            {{--{{#  if(d.status== "1"){ }}--}}
-                                    {{--<a class="layui-btn layui-btn-sm">关闭1</a>--}}
-                            {{--{{#  } }}--}}
-
-
-
-                    {{--@endcan--}}
-
-
-                {{--</div>--}}
-            {{--</script>--}}
+            <script type="text/html" id="user">
+                <div class="layui-btn-group">
+                    @can('v2board.user.edit')
+                        <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+                    @endcan
+                </div>
+            </script>
 
             {{--<script type="text/html" id="show">--}}
                 {{--<input type="checkbox" name="show" data-id="@{{ d.id }}" lay-skin="switch"  lay-filter="show" @{{ d.show ==1?"checked":""}}>--}}
@@ -77,7 +62,7 @@
                     ,page: true //开启分页
                     ,cols: [[ //表头
                         // {field: 'id', title: '#'}
-                        {field: 'email', title: '用户邮箱'}
+                        {field: 'email', title: '用户邮箱',toolbar: '#user'}
                         ,{field: 'subject', title: '主题'}
                         ,{field: 'level', title: '工单级别'}
                         ,{field: 'status_str', title: '工单状态'}
@@ -101,6 +86,8 @@
                         location.href = '/admin/ticket/'+data.id+'/close';
                     } else if(layEvent === 'detail'){
                         location.href = '/admin/ticket/'+data.id+'/detail';
+                    }else if(layEvent === 'edit'){
+                        location.href = '/admin/v2user/'+data.id+'/edit';
                     }
                 });
 
