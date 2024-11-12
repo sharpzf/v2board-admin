@@ -83,7 +83,14 @@
                 </div>
             </script>
 
-
+            {{--<script type="text/html" id="toolDemo">--}}
+                {{--<div class="layui-clear-space">--}}
+                    {{--<a class="layui-btn layui-btn-xs" lay-event="more">--}}
+                        {{--操作订单--}}
+                        {{--<i class="layui-icon layui-icon-down"></i>--}}
+                    {{--</a>--}}
+                {{--</div>--}}
+            {{--</script>--}}
         </div>
     </div>
 @endsection
@@ -91,10 +98,11 @@
 @section('script')
     @can('finance.order')
         <script>
-            layui.use(['layer','table','form'],function () {
+            layui.use(['layer','table','form','dropdown'],function () {
                 var layer = layui.layer;
                 var form = layui.form;
                 var table = layui.table;
+                var dropdown = layui.dropdown;
                 //用户表格初始化
                 var dataTable = table.render({
                     elem: '#dataTable'
@@ -114,14 +122,28 @@
                         ,{field: 'plan_name', title: '订阅计划',width:'10%'}
                         ,{field: 'period_val',title: '周期',width:'10%'}
                         ,{field: 'total_amount_val', title: '支付金额',width:'10%'}
+                        // ,{field: 'status_val', width:'13%',title: '订单状态',templet: function(d){
+                        //     if(d.status==0){
+                        //         return d.status_val+'<br><a class="diy_cancel" href="' + d.cancel_url + '">标记为取消</a>'+'<br><a class="diy_paid" href="' + d.paid_url + '">标记为已支付</a>';
+                        //     }else{
+                        //         return '' + d.status_val + '';
+                        //     }
+                        //
+                        // }}
+
                         ,{field: 'status_val', width:'13%',title: '订单状态',templet: function(d){
                             if(d.status==0){
-                                return d.status_val+'<br><a class="diy_cancel" href="' + d.cancel_url + '">标记为取消</a>'+'<br><a class="diy_paid" href="' + d.paid_url + '">标记为已支付</a>';
+                                return '<a class="layui-btn layui-btn-xs" lay-event="more">\n' +
+                                    '                        操作订单\n' +
+                                    '                        <i class="layui-icon layui-icon-down"></i>\n' +
+                                    '                    </a>';
                             }else{
                                 return '' + d.status_val + '';
                             }
 
                         }}
+
+                        // ,{field: 'status_val', width:'13%',title: '订单状态',templet: '#toolDemo'}
                         ,{field: 'commission_balance_val', title: '佣金金额',width:'10%'}
                         ,{field: 'commission_status_val',width:'10%', title: '佣金状态',templet: function(d){
                                     if(d.status!=0 &&d.status!=2 && d.commission_status==0){
@@ -155,6 +177,37 @@
                         });
                     } else if(layEvent === 'detail'){
                         location.href = '/admin/order/'+data.id+'/detail';
+                    } else if(obj.event === 'more'){
+
+                        // console.log(222,obj);
+                        // return false;
+                        // 更多 - 下拉菜单
+                        dropdown.render({
+                            elem: this, // 触发事件的 DOM 对象
+                            show: true, // 外部事件触发即显示
+                            data: [{
+                                title: '标记为取消',
+                                id: 'cancel_url'
+                            },{
+                                title: '标记为已支付',
+                                id: 'paid_url'
+                            }],
+                            click: function(menudata){
+                                if(menudata.id === 'cancel_url'){
+                                    window.location.href = obj.data.cancel_url;
+                                    // layer.msg('查看操作，当前行 ID:'+ data.id);
+                                } else if(menudata.id === 'paid_url'){
+                                    window.location.href = obj.data.paid_url;
+                                    // layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
+                                    //     obj.del(); // 删除对应行（tr）的DOM结构
+                                    //     layer.close(index);
+                                    //     // 向服务端发送删除指令
+                                    // });
+                                }
+                            },
+                            align: 'right', // 右对齐弹出
+                            style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);' // 设置额外样式
+                        })
                     }
                 });
 
