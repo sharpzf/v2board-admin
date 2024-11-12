@@ -229,13 +229,13 @@ class OrderController extends Controller
 
 
 
-    public function detail(Request $request)
+    public function detail(Request $request,$id)
     {
         $order = Order::with(['user'=>function($query){
             $query->select('id','email');
         },'plan'=>function($query){
             $query->select('id','name');
-        }])->find($request->input('id'));
+        }])->find($id);
 //        $order = Order::find($id);
         if (!$order) return redirect(route('admin.order'))->withErrors(['status'=>'订单不存在']);
         $order['commission_log'] = CommissionLog::where('trade_no', $order->trade_no)->get()->toArray();
