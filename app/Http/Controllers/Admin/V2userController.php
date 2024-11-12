@@ -138,9 +138,9 @@ class V2userController extends Controller
 
     public function edit($id)
     {
-        $user = User::find($id)->toArray();
+        $user = User::find($id);
         if (!$user){
-            return redirect(route('user.user'))->withErrors(['status'=>'用户不存在']);
+            return redirect(route('admin.v2user'))->withErrors(['status'=>'用户不存在']);
         }
 
         $plan = Plan::pluck('name','id')->toArray();

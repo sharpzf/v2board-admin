@@ -34,7 +34,7 @@
             <script type="text/html" id="user">
                 <div class="layui-btn-group">
                     @can('v2board.user.edit')
-                        <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-sm" lay-event="edit">@{{ d.email }}</a>
                     @endcan
                 </div>
             </script>

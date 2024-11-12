@@ -77,7 +77,8 @@
             <script type="text/html" id="trade_no">
                 <div class="layui-btn-group">
                     @can('finance.order.detail')
-                        <a class="layui-btn layui-btn-sm" >详情</a>
+                        {{--<a class="layui-btn layui-btn-sm" >详情</a>--}}
+                        <a class="layui-btn layui-btn-sm" lay-event="detail">@{{ d.trade_no }}</a>
                     @endcan
                 </div>
             </script>
@@ -152,8 +153,8 @@
                                 layer.msg(result.msg)
                             });
                         });
-                    } else if(layEvent === 'edit'){
-                        location.href = '/admin/order/'+data.id+'/edit';
+                    } else if(layEvent === 'detail'){
+                        location.href = '/admin/order/'+data.id+'/detail';
                     }
                 });
 
