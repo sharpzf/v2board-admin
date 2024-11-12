@@ -340,7 +340,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['auth','perm
         Route::get('order/{id?}/create','OrderController@create')->name('admin.order.create')->middleware('permission:finance.order.create');
         Route::post('order/store','OrderController@store')->name('admin.order.store')->middleware('permission:finance.order.create');
         //详情
-        Route::get('order/detail','OrderController@detail')->name('admin.order.detail')->middleware('permission:finance.order.detail');
+        Route::get('order/{id?}/detail','OrderController@detail')->name('admin.order.detail')->middleware('permission:finance.order.detail');
 //        Route::put('plan/{id}/update','PlanController@update')->name('admin.plan.update')->middleware('permission:finance.plan.edit');
         //订单状态-取消
         Route::get('order/cancel','OrderController@cancel')->name('admin.order.cancel')->middleware('permission:finance.order.cancel');
